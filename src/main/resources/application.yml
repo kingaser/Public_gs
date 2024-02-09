@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/public_new
+    username: cha
+    password: 123
+
+mybatis:
+  mapper-locations: mapper/**/*.xml
+
+logging:
+  config: classpath:logback/logback-local.xml

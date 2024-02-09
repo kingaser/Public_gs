@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form action="/user/userInfoInsert" method="post">
+  <div>
+    <label th:text="${view.seq}"></label><br/>
+    <label th:text="${view.userId}"></label><br/>
+    <label th:text="${view.userNm}"></label><br/>
+    <label th:text="${view.spaceNo}"></label><br/>
+    <label th:text="${view.use_YN}"></label><br/>
+    <label th:text="${view.userTel}"></label><br/>
+    <label th:text="${view.remark}"></label><br/>
+  </div>
+  <button type="submit">등록</button>
+</form>
+</body>
+</html>
