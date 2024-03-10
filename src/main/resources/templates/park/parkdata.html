@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <title>Title</title>
+  <script type="text/javascript" src="/common/js/jquery-3.7.1.min.js"></script>
+  <script type="text/javascript" src="/common/js/ajax.js"></script>
+  <script type="text/javascript" src="/common/js/common_code.js"></script>
+  <script type="text/javascript">
+      $(function () {
+          getSelectCommonCode("spaceNo","/common/spaceInfoList","all");
+          getSelectCommonCode("enterUser","/common/userInfoList","all");
+          getSelectCommonCode("discountCode","/common/discInfoList","one")
+      });
+  </script>
 </head>
 <body>
 <form action="/park/parkdataInsert" method="post">
@@ -10,14 +21,17 @@
     입차일자<input type="text" name="enterDay" placeholder="입차일자">
     입차시간<input type="text" name="enterTime" placeholder="시간단위">
           <input type="text" name="enterMin" placeholder="분단위">
-    입차요원<input type="text" name="enterUser" placeholder="ENTER_USER">
-    주차장명<input type="text" name="spaceNo" placeholder="monthSpace">
+    입차요원
+    <select id="enterUser" name="enterUser"></select>
+    주차장명
+    <select id="spaceNo" name="spaceNo"></select>
   </div>
   <div>
     차량번호<input type="text" name="carNo" placeholder="입차일자">
     사용구획<input type="text" name="spotCount" placeholder="사용구획">
     요원메모<input type="text" name="spotNo" placeholder="구획번호">
-    할인유형<input type="text" name="discountCode" placeholder="할인유형">
+    할인유형
+    <select id="discountCode" name="discountCode"></select>
   </div>
   <hr>
   <div>
@@ -52,9 +66,6 @@
     결제방법<input type="text" name="accGubun" placeholder="결제방법">
     결제일<input type="text" name="recpDt" placeholder="결제일">
     고지상태<input type="text" name="gojiState" placeholder="고지상태">
-  </div>
-  <div>
-    <input type="text" name="address" placeholder="address">
   </div>
   <button type="submit">등록</button>
 </form>

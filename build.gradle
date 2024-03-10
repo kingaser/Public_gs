@@ -35,6 +35,10 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+
+	implementation group:'com.googlecode.json-simple', name:'json-simple',version:'1.1.1'
+
+	implementation group: 'net.sourceforge.tess4j', name: 'tess4j', version: '4.5.4'
 }
 
 tasks.named('test') {

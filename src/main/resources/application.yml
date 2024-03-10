@@ -1,4 +1,9 @@
+---
+# dev
 spring:
+  config:
+    activate:
+      on-profile: dev
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/public_new
@@ -9,4 +14,28 @@ mybatis:
   mapper-locations: mapper/**/*.xml
 
 logging:
-  config: classpath:logback/logback-local.xml
+  config: classpath:logback/logback-dev.xml
+
+upload:
+  path: D:public/img/
+
+---
+# real
+spring:
+  config:
+    activate:
+      on-profile: real
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/public_new
+    username: cha
+    password: 123
+
+mybatis:
+  mapper-locations: mapper/**/*.xml
+
+logging:
+  config: classpath:logback/logback-real.xml
+
+upload:
+  path: D:public/img/

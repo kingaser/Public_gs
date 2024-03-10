@@ -1,5 +1,6 @@
 package org.park.public_bpss.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.park.public_bpss.service.SpaceInfoService;
 import org.park.public_bpss.vo.SpaceInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class SpaceInfoController {
   @Autowired
   private SpaceInfoService spaceInfoService;
@@ -19,6 +21,7 @@ public class SpaceInfoController {
   public String getSpaceInfoList(Model model){
     List<SpaceInfoVo> spaceInfoList = spaceInfoService.getSpaceInfoList();
     model.addAttribute("list", spaceInfoList);
+    log.info("spaceInfoList : "+spaceInfoList.toString());
     return "/space/spaceInfoList";
   }
 

@@ -24,7 +24,6 @@ public class UserInfoService {
   }
 
   public UserInfoVo userLogin(UserInfoVo userInfo){
-//    System.out.print("111 : " + userInfo);
     return userMapper.findByLoginId(userInfo);
   }
 }
