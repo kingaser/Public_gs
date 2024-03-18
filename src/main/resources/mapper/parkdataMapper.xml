@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.park.public_bpss.mapper.ParkdataMapper" >	<!-- mapper 인터페이스가 위치하는 경로 -->
+<mapper namespace="org.park.public_mlink.mapper.ParkdataMapper" >	<!-- mapper 인터페이스가 위치하는 경로 -->
 
-    <insert id="parkdataInsert" parameterType="org.park.public_bpss.vo.ParkdataVo">
+    <insert id="parkdataInsert" parameterType="org.park.public_mlink.vo.ParkdataVo">
         Insert into user_Info
             (
              spaceNm,

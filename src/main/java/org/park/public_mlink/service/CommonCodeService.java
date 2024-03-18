@@ -1,9 +1,9 @@
-package org.park.public_bpss.service;
+package org.park.public_mlink.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.park.public_bpss.mapper.CommonCodeMapper;
-import org.park.public_bpss.vo.CommonCodeVo;
+import org.park.public_mlink.mapper.CommonCodeMapper;
+import org.park.public_mlink.vo.CommonCodeVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class CommonCodeService {
   private final CommonCodeMapper commonCodeMapper;
 
   /**
-   * 주석
+   * 공통 데이터
    * @return
    */
   public List<CommonCodeVo> getCommonCodeSpaceList(){

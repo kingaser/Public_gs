@@ -7,8 +7,8 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/public_new
-    username: cha
-    password: 123
+    username: root
+    password: 7516
 
 mybatis:
   mapper-locations: mapper/**/*.xml
@@ -28,8 +28,8 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/public_new
-    username: cha
-    password: 123
+    username: root
+    password: 7516
 
 mybatis:
   mapper-locations: mapper/**/*.xml

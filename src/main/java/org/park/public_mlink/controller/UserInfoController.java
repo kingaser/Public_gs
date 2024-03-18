@@ -1,10 +1,10 @@
-package org.park.public_bpss.controller;
+package org.park.public_mlink.controller;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.park.public_bpss.service.UserInfoService;
-import org.park.public_bpss.vo.UserInfoVo;
+import org.park.public_mlink.service.UserInfoService;
+import org.park.public_mlink.vo.UserInfoVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

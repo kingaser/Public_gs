@@ -1,7 +1,7 @@
-package org.park.public_bpss.mapper;
+package org.park.public_mlink.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.park.public_bpss.vo.SpaceInfoVo;
+import org.park.public_mlink.vo.SpaceInfoVo;
 
 import java.util.List;
 

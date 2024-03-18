@@ -1,10 +1,9 @@
-package org.park.public_bpss.controller;
+package org.park.public_mlink.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.park.public_bpss.service.CommonCodeService;
-import org.park.public_bpss.vo.CommonCodeVo;
-import org.springframework.ui.Model;
+import org.park.public_mlink.service.CommonCodeService;
+import org.park.public_mlink.vo.CommonCodeVo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +14,8 @@ import java.util.List;
 public class CommonCodeController {
 
   private final CommonCodeService commonCodeService;
+  
+  // 주차장정보
   @GetMapping(value = "/common/spaceInfoList")
   public List<CommonCodeVo> getCommonCodeSpaceList(){
     List<CommonCodeVo> CommonCodeList = commonCodeService.getCommonCodeSpaceList();
@@ -22,6 +23,7 @@ public class CommonCodeController {
     return CommonCodeList;
   }
 
+  // 사용자정보
   @GetMapping(value = "/common/userInfoList")
   public List<CommonCodeVo> getCommonCodeUserList(){
     List<CommonCodeVo> CommonCodeUserList = commonCodeService.getCommonCodeUserList();
@@ -29,6 +31,7 @@ public class CommonCodeController {
     return CommonCodeUserList;
   }
 
+  //할인정보
   @GetMapping(value = "/common/discInfoList")
   public List<CommonCodeVo> getCommonCodeDiscList(){
     List<CommonCodeVo> CommonCodeDiscList = commonCodeService.getCommonCodeDiscList();

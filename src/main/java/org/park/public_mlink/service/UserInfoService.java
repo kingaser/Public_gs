@@ -1,7 +1,7 @@
-package org.park.public_bpss.service;
+package org.park.public_mlink.service;
 
-import org.park.public_bpss.mapper.UserMapper;
-import org.park.public_bpss.vo.UserInfoVo;
+import org.park.public_mlink.mapper.UserMapper;
+import org.park.public_mlink.vo.UserInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,6 @@ public class UserInfoService {
   public UserInfoVo userInfoSelect(Integer userNo){
     return userMapper.userInfoSelect(userNo);
   }
-
   public UserInfoVo userLogin(UserInfoVo userInfo){
     return userMapper.findByLoginId(userInfo);
   }

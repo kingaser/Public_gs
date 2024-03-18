@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.park.public_bpss.mapper.UserMapper">	<!-- mapper 인터페이스가 위치하는 경로 -->
-    <select id="getUserInfoList" resultType="org.park.public_bpss.vo.UserInfoVo">	<!-- id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 -->
+<mapper namespace="org.park.public_mlink.mapper.UserMapper">	<!-- mapper 인터페이스가 위치하는 경로 -->
+    <select id="getUserInfoList" resultType="org.park.public_mlink.vo.UserInfoVo">	<!-- id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 -->
         SELECT *
         FROM user_Info	<!-- SQL문 작성 -->
     </select>
 
-    <insert id="userInfoInsert" parameterType="org.park.public_bpss.vo.UserInfoVo">
+    <insert id="userInfoInsert" parameterType="org.park.public_mlink.vo.UserInfoVo">
         Insert into user_Info
             (
              spaceNm,
@@ -35,12 +35,12 @@
 
     </insert>
 
-    <select id="userInfoSelect" resultType="org.park.public_bpss.vo.UserInfoVo" parameterType="Integer">
+    <select id="userInfoSelect" resultType="org.park.public_mlink.vo.UserInfoVo" parameterType="Integer">
         SELECT * FROM user_Info
         where seq=#{seq}
     </select>
 
-    <select id="findByLoginId" resultType="org.park.public_bpss.vo.UserInfoVo" parameterType="org.park.public_bpss.vo.UserInfoVo">
+    <select id="findByLoginId" resultType="org.park.public_mlink.vo.UserInfoVo" parameterType="org.park.public_mlink.vo.UserInfoVo">
         SELECT * FROM user_Info
         where userId=#{userId}
     </select>

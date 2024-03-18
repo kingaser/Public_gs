@@ -1,8 +1,8 @@
-package org.park.public_bpss.controller;
+package org.park.public_mlink.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.park.public_bpss.service.SpaceInfoService;
-import org.park.public_bpss.vo.SpaceInfoVo;
+import org.park.public_mlink.service.SpaceInfoService;
+import org.park.public_mlink.vo.SpaceInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
