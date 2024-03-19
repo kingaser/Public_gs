@@ -30,6 +30,7 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	implementation "com.h2database:h2"
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -40,6 +41,7 @@ dependencies {
 	implementation group:'com.googlecode.json-simple', name:'json-simple',version:'1.1.1'
 
 	implementation group: 'net.sourceforge.tess4j', name: 'tess4j', version: '4.5.4'
+
 }
 
 tasks.named('test') {

@@ -23,10 +23,10 @@ public class UserInfoController {
   public String getUserInfoList(Model model) {
     List<UserInfoVo> userInfoList = userInfoService.getUserInfoList();
     model.addAttribute("list", userInfoList);
-    return "user/userInfoList";
+    return "/user/userInfoList";
   }
 
-  @GetMapping("user/userInfo")
+  @GetMapping("/user/userInfo")
   public String getUserInfo(Model model) {
     return "/user/userInfo";
   }
@@ -40,7 +40,7 @@ public class UserInfoController {
   @GetMapping("/user/userInfoView")
   public String userInfoView(Model model, Integer seq) {
     model.addAttribute("view", userInfoService.userInfoSelect(seq));
-    return "user/userInfoView";
+    return "/user/userInfoView";
   }
 
   @GetMapping("/login")
@@ -50,10 +50,10 @@ public class UserInfoController {
 
   @GetMapping("/main")
   public String homemain(Model model) {
-    return "main";
+    return "/main";
   }
 
-  @PostMapping("/loginAction")
+  /*@PostMapping("/loginAction")
   public String userLogin(UserInfoVo userInfo, HttpSession session) {
     log.debug("userInfo = {}", userInfo); // aop 설정 추천
     UserInfoVo loginResult = userInfoService.userLogin(userInfo);
@@ -68,6 +68,24 @@ public class UserInfoController {
     } else {
       //실패
       return "login";
+    }
+  }*/
+  @PostMapping("/loginAction")
+  public String userLogin(String userId, String userPw, HttpSession session) {
+
+    log.debug("userInfo = {}", userId, userPw); // aop 설정 추천
+    UserInfoVo loginResult = userInfoService.userLogin(userId);
+    log.debug("loginResult = {}", loginResult); // aop 설정 추천
+    if (loginResult.getUserId().equals(userId)) {
+      //login 성공
+      session.setAttribute("loginId", loginResult.getUserId());
+      session.setAttribute("loginNm", loginResult.getUserNm());
+      session.setAttribute("loginSpace", loginResult.getSpaceNo());
+      session.setAttribute("loginGrade", loginResult.getGrade());
+      return "redirect:main";
+    } else {
+      //실패
+      return "/login";
     }
   }
 

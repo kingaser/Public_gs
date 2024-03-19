@@ -22,7 +22,7 @@ public class UserInfoService {
   public UserInfoVo userInfoSelect(Integer userNo){
     return userMapper.userInfoSelect(userNo);
   }
-  public UserInfoVo userLogin(UserInfoVo userInfo){
-    return userMapper.findByLoginId(userInfo);
+  public UserInfoVo userLogin(String userId){
+    return userMapper.findByLoginId(userId);
   }
 }

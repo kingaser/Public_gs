@@ -10,6 +10,6 @@ public interface UserMapper {
   void userInfoInsert(UserInfoVo userInfoVo);
   List<UserInfoVo> getUserInfoList();
   UserInfoVo userInfoSelect(Integer userNo);
-  UserInfoVo findByLoginId(UserInfoVo userInfo);
+  UserInfoVo findByLoginId(String userId);
 
 }

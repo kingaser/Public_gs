@@ -40,7 +40,7 @@
         where seq=#{seq}
     </select>
 
-    <select id="findByLoginId" resultType="org.park.public_gs.vo.UserInfoVo" parameterType="org.park.public_gs.vo.UserInfoVo">
+    <select id="findByLoginId" resultType="org.park.public_gs.vo.UserInfoVo" parameterType="String">
         SELECT * FROM user_Info
         where userId=#{userId}
     </select>
