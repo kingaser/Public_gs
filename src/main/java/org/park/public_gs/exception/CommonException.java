@@ -1,4 +1,4 @@
-package org.park.public_mlink.exception;
+package org.park.public_gs.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;

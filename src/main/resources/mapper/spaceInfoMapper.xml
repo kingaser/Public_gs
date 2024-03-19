@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.park.public_mlink.mapper.SpaceMapper">	<!-- mapper 인터페이스가 위치하는 경로 -->
-    <select id="getSpaceInfoList" resultType="org.park.public_mlink.vo.SpaceInfoVo">	<!-- id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 -->
+<mapper namespace="org.park.public_gs.mapper.SpaceMapper">	<!-- mapper 인터페이스가 위치하는 경로 -->
+    <select id="getSpaceInfoList" resultType="org.park.public_gs.vo.SpaceInfoVo">	<!-- id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 -->
         SELECT *
         FROM space_Info	<!-- SQL문 작성 -->
     </select>
 
-    <insert id="spaceInfoInsert" parameterType="org.park.public_mlink.vo.SpaceInfoVo">
+    <insert id="spaceInfoInsert" parameterType="org.park.public_gs.vo.SpaceInfoVo">
         Insert into space_Info
             (
              spaceNm,
@@ -35,7 +35,7 @@
 
     </insert>
 
-    <select id="spaceInfoSelect" resultType="org.park.public_mlink.vo.SpaceInfoVo" parameterType="Integer">
+    <select id="spaceInfoSelect" resultType="org.park.public_gs.vo.SpaceInfoVo" parameterType="Integer">
         SELECT * FROM space_Info
         where spaceNo=#{spaceNo}
     </select>

@@ -1,7 +1,7 @@
-package org.park.public_mlink.service;
+package org.park.public_gs.service;
 
-import org.park.public_mlink.mapper.UserMapper;
-import org.park.public_mlink.vo.UserInfoVo;
+import org.park.public_gs.mapper.UserMapper;
+import org.park.public_gs.vo.UserInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

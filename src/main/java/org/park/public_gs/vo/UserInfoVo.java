@@ -1,4 +1,4 @@
-package org.park.public_mlink.vo;
+package org.park.public_gs.vo;
 
 import lombok.Data;
 

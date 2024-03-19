@@ -1,9 +1,9 @@
-package org.park.public_mlink.service;
+package org.park.public_gs.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.park.public_mlink.mapper.CommonCodeMapper;
-import org.park.public_mlink.vo.CommonCodeVo;
+import org.park.public_gs.mapper.CommonCodeMapper;
+import org.park.public_gs.vo.CommonCodeVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

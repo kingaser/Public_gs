@@ -1,8 +1,8 @@
-package org.park.public_mlink.controller;
+package org.park.public_gs.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.park.public_mlink.service.SpaceInfoService;
-import org.park.public_mlink.vo.SpaceInfoVo;
+import org.park.public_gs.service.SpaceInfoService;
+import org.park.public_gs.vo.SpaceInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +22,7 @@ public class SpaceInfoController {
     List<SpaceInfoVo> spaceInfoList = spaceInfoService.getSpaceInfoList();
     model.addAttribute("list", spaceInfoList);
     log.info("spaceInfoList : "+spaceInfoList.toString());
-    return "/space/spaceInfoList";
+    return "space/spaceInfoList";
   }
 
   @GetMapping("/space/spaceInfo")

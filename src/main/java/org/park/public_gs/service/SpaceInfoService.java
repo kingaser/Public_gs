@@ -1,7 +1,7 @@
-package org.park.public_mlink.service;
+package org.park.public_gs.service;
 
-import org.park.public_mlink.mapper.SpaceMapper;
-import org.park.public_mlink.vo.SpaceInfoVo;
+import org.park.public_gs.mapper.SpaceMapper;
+import org.park.public_gs.vo.SpaceInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

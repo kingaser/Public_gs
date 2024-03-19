@@ -1,7 +1,7 @@
-package org.park.public_mlink.mapper;
+package org.park.public_gs.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.park.public_mlink.vo.UserInfoVo;
+import org.park.public_gs.vo.UserInfoVo;
 
 import java.util.List;
 

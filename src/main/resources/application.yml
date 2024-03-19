@@ -1,14 +1,16 @@
----
-# dev
 spring:
-  config:
-    activate:
-      on-profile: dev
+  application:
+    name: public_gs
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/public_new
+    url: jdbc:mariadb://218.38.29.60:3306/public_gs
     username: root
-    password: 7516
+    password: rnjsalswo13@$
+  thymeleaf:
+    cache: false
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
 
 mybatis:
   mapper-locations: mapper/**/*.xml
@@ -19,23 +21,3 @@ logging:
 upload:
   path: D:public/img/
 
----
-# real
-spring:
-  config:
-    activate:
-      on-profile: real
-  datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/public_new
-    username: root
-    password: 7516
-
-mybatis:
-  mapper-locations: mapper/**/*.xml
-
-logging:
-  config: classpath:logback/logback-real.xml
-
-upload:
-  path: D:public/img/
