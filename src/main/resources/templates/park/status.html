@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;">
+    <meta property="og:image" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+<!--    <link rel="stylesheet" type="text/css" th:href="@{../../styles/jquery-ui.css}">-->
+    <link rel="stylesheet" type="text/css" th:href="@{../../styles/jquery.dataTables.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../../styles/layout.css}">
+    <title>MLINK 공영주차</title>
+</head>
+<body>
+
+<div id="wrap">
+    <!-- header //-->
+    <div class="header">
+        <div class="header-container">
+            <h1><a href="#"><img src="/images/logo.png" alt="MLINK 공영주차"></a></h1>
+            <div class="nav-wrap">
+                <ul>
+                    <li><a href="#">유지보수 게시판</a></li>
+                    <li><a href="#">미수 차량 관리</a></li>
+                </ul>
+                <div class="member">
+                    <p class="name"><strong>홍길동</strong> 님</p>
+                    <p class="time"><span>03:28</span> <a href="#">연장</a></p>
+                    <a href="#"><img src="/images/ico_logout.svg" alt="logout" class="btn-logout">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--// header -->
+
+    <!-- sub-wrap //-->
+    <div class="sub-wrap">
+        <!-- menu //-->
+        <div class="left-wrap">
+            <ul class="submenu-wrap">
+                <li><a href="#" class="active">기본정보</a>
+                    <ul>
+                        <li><a href="#" >품목관리</a></li>
+                        <li><a href="/code/codeManage">코드관리</a></li>
+                        <li><a href="/park/status" class="active">이용현황</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">월정기관리</a>
+                    <ul>
+                        <li><a href="#">서브메뉴</a></li>
+                        <li><a href="#">서브메뉴</a></li>
+                        <li><a href="#">서브메뉴</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">일주차관리</a>
+                    <ul>
+                        <li><a href="#">서브메뉴</a></li>
+                        <li><a href="#">서브메뉴</a></li>
+                        <li><a href="#">서브메뉴</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">수입금관리</a>
+                    <ul>
+                        <li><a href="#">서브메뉴</a></li>
+                        <li><a href="#">서브메뉴</a></li>
+                        <li><a href="#">서브메뉴</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">레포트</a>
+                    <ul>
+                        <li><a href="#">서브메뉴</a></li>
+                        <li><a href="#">서브메뉴</a></li>
+                        <li><a href="#">서브메뉴</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">민간위탁</a>
+                    <ul>
+                        <li><a href="#">서브메뉴</a></li>
+                        <li><a href="#">서브메뉴</a></li>
+                        <li><a href="#">서브메뉴</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--// menu -->
+        <!-- content //-->
+        <div class="right-wrap">
+            <div class="content-wrap">
+                <!-- content head //-->
+                <div class="content-head">
+                    <h3>이용현황</h3>
+                    <ul class="linemap">
+                        <li><img src="/images/img_home.png" alt=""></li>
+                        <li>기본정보</li>
+                        <li>이용현황</li>
+                    </ul>
+                </div>
+                <!--// content head -->
+                <!-- content body //-->
+                <div class="content-body">
+                    <div class="con-group">
+                        <div class="bs-group-wrap">
+                            <div class="bs-group w100p hug">
+                                <div class="con">
+                                    <p class="tit">주차장</p>
+                                    <select class="w100p">
+                                        <option>전체</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-black w100">검색</button>
+                        </div>
+                    </div>
+                    <div class="con-group w100p">
+
+                        <table class="tbl-list" id="data-table">
+                            <caption></caption>
+                            <thead>
+                            <tr>
+                                <th>주차장명</th>
+                                <th>입차일시</th>
+                                <th>출차일시</th>
+                                <th>차량번호</th>
+                                <th>수납일</th>
+                                <th>결제구분</th>
+                                <th>이용금액</th>
+                                <th>할인금액</th>
+                                <th>가산금</th>
+                                <th>결제금액</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${#lists.size(parkStatusList)} > 0" th:each="parkStatusList : ${parkStatusList}">
+                                <td th:text="${parkStatusList.spaceNm}"></td>
+                                <td th:text="${parkStatusList.EnterDate}"></td>
+                                <td th:text="${parkStatusList.LeaveDate}"></td>
+                                <td th:text="${parkStatusList.carNo}"></td>
+                                <td th:text="${parkStatusList.RecpNo}"></td>
+                                <td th:text="${parkStatusList.accGubun}"></td>
+                                <td th:text="${parkStatusList.SaleAmount}"></td>
+                                <td th:text="${parkStatusList.DiscAmount}"></td>
+                                <td th:text="${parkStatusList.Gasan}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="tbl-list nohover">
+                            <caption></caption>
+                            <colgroup>
+                                <col style="width: 10%;">
+                                <col>
+                                <col style="width: 10%;">
+                                <col>
+                                <col style="width: 10%;">
+                                <col>
+                                <col style="width: 10%;">
+                                <col>
+                            </colgroup>
+                            <tr>
+                                <th>주차장</th>
+                                <td>
+                                    <select class="w100p">
+                                        <option>굴포1차</option>
+                                    </select>
+                                </td>
+                                <th>품목구분</th>
+                                <td>
+                                    <select class="w100p">
+                                        <option>사용료</option>
+                                    </select>
+                                </td>
+                                <th>품목코드</th>
+                                <td><input type="text" class="w100p" value="00001"></td>
+                                <th>품목명</th>
+                                <td><input type="text" class="w100p" value="시간주차"></td>
+                            </tr>
+                            <tr>
+                                <th>업장코드</th>
+                                <td>
+                                    <select class="w100p">
+                                        <option>주차권</option>
+                                    </select>
+                                </td>
+                                <th>종목코드</th>
+                                <td>
+                                    <select class="w100p">
+                                        <option>시간주차</option>
+                                    </select>
+                                </td>
+                                <th>부가세</th>
+                                <td>
+                                    <select class="w100p">
+                                        <option>아니오</option>
+                                    </select>
+                                </td>
+                                <th>회계수입</th>
+                                <td>
+                                    <select class="w100p">
+                                        <option></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>시간or금액</th>
+                                <td>
+                                    <select class="w100p">
+                                        <option></option>
+                                    </select>
+                                </td>
+                                <th>시즌</th>
+                                <td>
+                                    <select class="w100p">
+                                        <option>비성수기</option>
+                                    </select>
+                                </td>
+                                <th>적용시간(분)</th>
+                                <td><input type="text" class="w100p" value="5"></td>
+                                <th>단가1</th>
+                                <td><input type="text" class="w100p" value="150"></td>
+                            </tr>
+                            <tr>
+                                <th>단가2</th>
+                                <td><input type="text" class="w100p" value=""></td>
+                                <th>할인율(숫자)</th>
+                                <td><input type="text" class="w100p" value=""></td>
+                                <th>정렬순서</th>
+                                <td><input type="text" class="w100p" value="1"></td>
+                                <th>상태구분</th>
+                                <td>
+                                    <select class="w100p">
+                                        <option>정상</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="btn-wrap">
+                            <button type="button" class="btn btn-mint">신규</button>
+                            <button type="button" class="btn btn-red">저장</button>
+                            <button type="button" class="btn btn-black">삭제</button>
+                        </div>
+                        <p class="copyright">Ⓒ MlinkKorea.Co.,Ltd. All rights reserved.</p>
+
+                    </div>
+                </div>
+                <!--// content body -->
+            </div>
+        </div>
+        <!--// content -->
+    </div>
+    <!--// sub-wrap -->
+</div>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script>
+    $(function (){
+
+        // datatable
+        new DataTable('#data-table', {
+            paging: false,
+            scrollCollapse: true,
+            scrollX: '100%',
+            scrollY: '250px',
+            filter: false,
+            info: false
+        });
+
+        // table tr 선택
+        $(".dataTables_wrapper tr").on("click", function(){
+            $(this).siblings("tr").removeClass("active");
+            if ( $(this).hasClass("active") ) {
+                $(this).removeClass("active");
+            } else {
+                $(this).addClass("active");
+            }
+        });
+
+        // modal
+        $('[poplink]').on('click', function(e){
+            e.preventDefault();
+            $('#'+$(this).attr('poplink')).fadeIn();
+        });
+        $('.btn-close, .pop-btn-close, .pop-btn-confirm').on('click', function(){
+            $(this).parents('.pop').hide();
+        });
+
+    });
+</script>
+
+</body>
+</html>

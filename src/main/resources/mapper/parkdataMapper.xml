@@ -28,6 +28,13 @@
              null,
              "0"
             )
-
     </insert>
+
+    <select id="getParkdataList" resultType="org.park.public_gs.dto.ParkStatusDto">
+        SELECT s.spaceNm, p.EnterDate, p.LeaveDate, p.carNo, p.RecpDt, p.accGubun, p.SaleAmount, p.DiscAmount, p.Gasan
+        FROM parkdata p
+            JOIN space_info s
+                ON p.spaceNo = s.spaceNo
+    </select>
+
 </mapper>
