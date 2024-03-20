@@ -53,23 +53,6 @@ public class UserInfoController {
     return "/main";
   }
 
-  /*@PostMapping("/loginAction")
-  public String userLogin(UserInfoVo userInfo, HttpSession session) {
-    log.debug("userInfo = {}", userInfo); // aop 설정 추천
-    UserInfoVo loginResult = userInfoService.userLogin(userInfo);
-    log.debug("loginResult = {}", loginResult); // aop 설정 추천
-    if (loginResult.getUserId().equals(userInfo.getUserId())) {
-      //login 성공
-      session.setAttribute("loginId", loginResult.getUserId());
-      session.setAttribute("loginNm", loginResult.getUserNm());
-      session.setAttribute("loginSpace", loginResult.getSpaceNo());
-      session.setAttribute("loginGrade", loginResult.getGrade());
-      return "main";
-    } else {
-      //실패
-      return "login";
-    }
-  }*/
   @PostMapping("/loginAction")
   public String userLogin(String userId, String userPw, HttpSession session) {
 
@@ -82,7 +65,7 @@ public class UserInfoController {
       session.setAttribute("loginNm", loginResult.getUserNm());
       session.setAttribute("loginSpace", loginResult.getSpaceNo());
       session.setAttribute("loginGrade", loginResult.getGrade());
-      return "redirect:main";
+      return "redirect:/code/codeManage";
     } else {
       //실패
       return "/login";
