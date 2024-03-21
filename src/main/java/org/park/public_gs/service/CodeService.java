@@ -21,7 +21,6 @@ public class CodeService {
     }
 
     public List<CodeDetailVo> getCodeDetailList(String commonCode) {
-        log.info("SELECT * FROM code_detail WHERE commonCode = ", commonCode);
         return codeMapper.codeDetailList(commonCode);
     }
 }

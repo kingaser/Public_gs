@@ -8,9 +8,11 @@ import java.util.Optional;
 
 @Mapper
 public interface SpaceMapper {
-  List<SpaceInfoVo> getSpaceInfoList();
-  void spaceInfoInsert(SpaceInfoVo spaceInfoVo);
-  SpaceInfoVo spaceInfoSelect(Integer spaceNo);
+    List<SpaceInfoVo> getSpaceInfoList();
 
-  Optional<SpaceInfoVo> getSpaceInfo(String spaceNm);
+    void spaceInfoInsert(SpaceInfoVo spaceInfoVo);
+
+    SpaceInfoVo spaceInfoSelect(Integer spaceNo);
+
+    Optional<SpaceInfoVo> getSpaceInfo(String spaceNm);
 }

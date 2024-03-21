@@ -1,11 +1,16 @@
 package org.park.public_gs.vo;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
-@Data
+@Getter
 public class CommonCodeVo {
-  private String codeNo;
-  private String codeNm;
+    private String codeNo;
+    private String codeNm;
 
-
+    @Builder
+    public CommonCodeVo(String codeNo, String codeNm) {
+        this.codeNo = codeNo;
+        this.codeNm = codeNm;
+    }
 }

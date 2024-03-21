@@ -13,19 +13,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommonCodeService {
 
-  private final CommonCodeMapper commonCodeMapper;
+    private final CommonCodeMapper commonCodeMapper;
 
-  /**
-   * 공통 데이터
-   * @return
-   */
-  public List<CommonCodeVo> getCommonCodeSpaceList(){
-    return commonCodeMapper.CommonCodeSpaceInfo();
-  }
-  public List<CommonCodeVo> getCommonCodeUserList(){
-    return commonCodeMapper.CommonCodeUserList();
-  }
-  public List<CommonCodeVo> getCommonCodeDiscList(){
-    return commonCodeMapper.CommonCodeDiscList();
-  }
+    /**
+     * 공통 데이터
+     *
+     * @return
+     */
+    public List<CommonCodeVo> getCommonCodeSpaceList() {
+        return commonCodeMapper.CommonCodeSpaceInfo();
+    }
+
+    public List<CommonCodeVo> getCommonCodeUserList() {
+        return commonCodeMapper.CommonCodeUserList();
+    }
+
+    public List<CommonCodeVo> getCommonCodeDiscList() {
+        return commonCodeMapper.CommonCodeDiscList();
+    }
 }

@@ -10,9 +10,9 @@ import org.park.public_gs.vo.ParkDataVo;
 import org.park.public_gs.vo.SpaceInfoVo;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -32,7 +32,7 @@ public class ParkDataService {
         Date enterDate = null;
 
         try {
-            enterDate = (Date) format.parse(parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + " " + parkInsertDto.getEnterMinute());
+            enterDate = format.parse(parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + " " + parkInsertDto.getEnterMinute());
         } catch (ParseException e) {
             log.error(e.getMessage());
         }

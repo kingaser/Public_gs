@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @RequiredArgsConstructor
@@ -21,17 +21,17 @@ public class SpaceSaleVo {
     private Integer dayMaxPay;           // 일일최대요금
     private Integer dayMinPay;           // 최소요금
     private Integer monthPay;            // 월정기요금
-    private String InsertUser;           // 입력자ID
-    private Date InsertDate;             // 입력일시
-    private String UpdateUser;           // 수정자
-    private Date UpdateDate;             // 수정일시
+    private String insertUser;           // 입력자ID
+    private LocalDateTime insertDate;    // 입력일시
+    private String updateUser;           // 수정자
+    private LocalDateTime updateDate;    // 수정일시
     private String del_Tag;              // 상태구분 (0정상, 9삭제등)
 
     @Builder
     public SpaceSaleVo(String spaceNo, String spaceNm, Integer freeTime, Integer outFreeTime, Integer basicUnit,
                        Integer basicPay, Integer intervalUnit, Integer intervalPay, Integer dayMaxPay,
-                       Integer dayMinPay, Integer monthPay, String InsertUser, Date InsertDate, String UpdateUser,
-                       Date UpdateDate, String del_Tag) {
+                       Integer dayMinPay, Integer monthPay, String insertUser, LocalDateTime insertDate,
+                       String updateUser, LocalDateTime updateDate, String del_Tag) {
         this.spaceNo = spaceNo;
         this.spaceNm = spaceNm;
         this.freeTime = freeTime;
@@ -43,10 +43,10 @@ public class SpaceSaleVo {
         this.dayMaxPay = dayMaxPay;
         this.dayMinPay = dayMinPay;
         this.monthPay = monthPay;
-        this.InsertUser = InsertUser;
-        this.InsertDate = InsertDate;
-        this.UpdateUser = UpdateUser;
-        this.UpdateDate = UpdateDate;
+        this.insertUser = insertUser;
+        this.insertDate = insertDate;
+        this.updateUser = updateUser;
+        this.updateDate = updateDate;
         this.del_Tag = del_Tag;
     }
 }
