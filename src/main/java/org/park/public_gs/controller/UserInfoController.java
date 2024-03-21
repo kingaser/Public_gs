@@ -16,8 +16,8 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class UserInfoController {
-  private final UserInfoService userInfoService;
 
+  private final UserInfoService userInfoService;
 
   @GetMapping("/user/userInfoList")
   public String getUserInfoList(Model model) {

@@ -39,4 +39,9 @@
         SELECT * FROM space_Info
         where spaceNo=#{spaceNo}
     </select>
+
+    <select id="getSpaceInfo" resultType="org.park.public_gs.vo.SpaceInfoVo" parameterType="String">
+        SELECT * FROM space_Info
+        WHERE spaceNm = #{spaceNm}
+    </select>
 </mapper>

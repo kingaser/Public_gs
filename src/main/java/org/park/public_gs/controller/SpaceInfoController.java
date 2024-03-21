@@ -1,9 +1,9 @@
 package org.park.public_gs.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.park.public_gs.service.SpaceInfoService;
 import org.park.public_gs.vo.SpaceInfoVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +13,10 @@ import java.util.List;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class SpaceInfoController {
-  @Autowired
-  private SpaceInfoService spaceInfoService;
+
+  private final SpaceInfoService spaceInfoService;
 
   @GetMapping("/space/spaceInfoList")
   public String getSpaceInfoList(Model model){
