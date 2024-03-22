@@ -4,37 +4,34 @@
 <mapper namespace="org.park.public_gs.mapper.ParkDataHistoryMapper" >	<!-- mapper 인터페이스가 위치하는 경로 -->
 
     <!-- 이용 현황 신규 저장 History -->
-    <insert id="parkDataHistoryInsert" parameterType="org.park.public_gs.vo.ParkDataVo">
+    <insert id="parkDataInsert" parameterType="org.park.public_gs.vo.ParkDataVo">
         INSERT INTO parkdata
-            (
-                 serialNo,
-                 spaceNo,
-                 carNo,
-                 enterType,
-                 enterDate,
-                 enterUser,
-                 discountCode,
-                 leaveType,
-                 leaveDate,
-                 leaveUser,
-                 spotCount,
-                 userRemark,
-                 spotNo,
-                 gasan,
-                 discAmount,
-                 cutAmount,
-                 saleAmount,
-                 receiveAmount,
-                 recpDt,
-                 remark,
-                 insertUser,
-                 insertDate,
-                 insertIp,
-                 del_Tag
-            )
-        VALUES
-            (
-                #{serialNo},
+        (serialNo,
+         spaceNo,
+         carNo,
+         enterType,
+         enterDate,
+         enterUser,
+         discountCode,
+         leaveType,
+         leaveDate,
+         leaveUser,
+         spotCount,
+         userRemark,
+         spotNo,
+         gasan,
+         discAmount,
+         cutAmount,
+         saleAmount,
+         receiveAmount,
+         recpDt,
+         remark,
+         insertUser,
+         insertDate,
+         insertIp,
+         del_Tag,
+         chasu)
+        VALUES (#{serialNo},
                 #{spaceNo},
                 #{carNo},
                 3,
@@ -48,15 +45,16 @@
                 #{userRemark},
                 #{spotNo},
                 #{gasan},
-                #{discountAmount},
+                #{discAmount},
                 #{cutAmount},
-                #{saleAmount}.
-                #{receiveAmount} #{recpDt},
+                #{saleAmount},
+                #{receiveAmount},
+                #{recpDt},
                 #{insertUser},
                 now(),
                 #{insertIp},
-                0
-            )
+                0,
+                #{chasu})
     </insert>
 
 </mapper>

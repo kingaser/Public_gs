@@ -226,10 +226,24 @@ function getSelectCommonCode(SELECT_ID, URL, SELECT_OPTION){
     if ($(resultJson).length > 0) {
         if(SELECT_OPTION=="all"){
             option += "<option value=''>전체</option>";
+        }else if(SELECT_OPTION=="misu"){
+            option += "<option value=''>미수</option>";
         }
         $.each(resultJson, function(i, n) {
-            option += "<option value='"+ n.codeNo + "'>"+ n.codeNm	+ "</option>";
+            option += "<option value='"+ n.codeNo + "' id='"+ n.codeNo + "'>"+ n.codeNm	+ "</option>";
         });
         $("#"+SELECT_ID).html(option);
    }
+}
+
+function getCommonCode(SELECT_ID, URL, SELECT_OPTION){
+    var url = URL;
+    var param = {}
+    var resultJson = fnAjaxJson(url,param);
+    var option = "";
+    if ($(resultJson).length > 0) {
+        for (let i = 0; i < resultJson.length; i++) {
+            option += $("<option" + resultJson[0] + ">" + resultJson[1] + "</option>");
+        }
+    }
 }

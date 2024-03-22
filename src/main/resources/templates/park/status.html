@@ -191,18 +191,18 @@
                                         <th>입차시간</th>
                                         <td>
                                             <div style="display: flex; justify-content: center">
-                                                <input type="text" class="w50p datepicker" name="enterHour" value="09">시
-                                                <input type="text" class="w50p datepicker" name="enterMinute" value="00">분
+                                                <input type="text" class="w50 datepicker" name="enterHour" value="09">시
+                                                <input type="text" class="w50 datepicker" name="enterMinute" value="00">분
                                             </div>
                                         </td>
                                         <th>입차요원</th>
                                         <td><input type="text" class="w100p" name="enterUser" value=""></td>
                                         <th>주차장명</th>
-                                        <td><input type="text" class="w100p" name="spaceNm" value="양재"></td>
+                                        <td><input type="text" class="w100p" name="spaceNm" value=""></td>
                                     </tr>
                                     <tr>
                                         <th>차량번호</th>
-                                        <td><input type="text" class="w100p" name="carNo" value="111가1111"></td>
+                                        <td><input type="text" class="w100p" name="carNo" value=""></td>
                                         <th>사용구획</th>
                                         <td><input type="text" class="w100p" name="spotCount" value="1"></td>
                                         <th>구획번호</th>
@@ -232,13 +232,7 @@
                                         <td><input type="text" class="w100p" name="leaverUser"></td>
                                         <th>출차유형</th>
                                         <td>
-                                            <select class="w100p" name="leaveType">
-                                                <option value="9">미출</option>
-                                                <option value="3">잔류</option>
-                                                <option value="2">임의출차</option>
-                                                <option value="6">선납</option>
-                                                <option value="1">정상출차</option>
-                                            </select>
+                                            <select id="leaveType" name="leaveType" ></select>
                                         </td>
                                     </tr>
                                     <tr>
@@ -263,7 +257,7 @@
                                     </tr>
                                     <tr>
                                         <th>요원메모</th>
-                                        <td colspan="3"><input type="text" class="w100p" name="userRemark"></td>
+                                        <td><input type="text" class="w100p" name="userRemark"></td>
                                         <th>관리자메모</th>
                                         <td><input type="text" class="w100p" name="remark"></td>
                                         <th>결제금액</th>
@@ -274,17 +268,17 @@
                                         <td><input type="text" class="w100p" value=""></td>
                                         <th>가상계좌기한</th>
                                         <td><input type="text" class="w100p datepicker" value="2024.01.01"></td>
-                                        <td colspan="2" class="left">
-                                            <div style="display: flex">
-                                                <button type="button" class="btn btn-blue" poplink="pop1">기한연장</button>&nbsp;&nbsp;
-                                                <button type="button" class="btn btn-blue">번호재생성</button>&nbsp;&nbsp;
-                                                <button type="button" class="btn btn-blue">금액수정</button>&nbsp;&nbsp;
+                                        <td colspan="2" class="right">
+                                            <div style="display: flex; justify-content: right">
+                                                <button type="button" class="btn btn-blue" poplink="pop1">기한연장</button>&nbsp;
+                                                <button type="button" class="btn btn-blue">번호재생성</button>&nbsp;
+                                                <button type="button" class="btn btn-blue">금액수정</button>&nbsp;
                                                 <button type="button" class="btn btn-blue">SMS</button>
                                             </div>
                                         </td>
                                         <th></th>
                                         <td class="right">
-                                            <div style="display: flex">
+                                            <div style="display: flex; justify-content: right">
                                                 <button type="button" class="btn btn-gray">신규</button>&nbsp;&nbsp;
                                                 <button type="button" class="btn btn-gray">입차</button>&nbsp;&nbsp;
                                                 <button type="button" class="btn btn-gray">수정</button>
@@ -294,15 +288,7 @@
                                     <tr>
                                         <th>결제방법</th>
                                         <td>
-                                            <select class="w100p" name="accGubun">
-                                                <option value="00">미납</option>
-                                                <option value="01">현금</option>
-                                                <option value="02">카드</option>
-                                                <option value="03">무통장</option>
-                                                <option value="04">고지서</option>
-                                                <option value="05">현금+카드</option>
-                                                <option value="06">가상계좌</option>
-                                            </select>
+                                            <select id="accGubun" name="accGubun"></select>
                                         </td>
                                         <th>결제일</th>
                                         <td><input type="text" class="w100p" name="recpDt"></td>
@@ -310,7 +296,7 @@
                                         <td><input type="text" class="w100p" name="gojiState"></td>
                                         <th></th>
                                         <td>
-                                            <div style="display: flex">
+                                            <div style="display: flex; justify-content: right">
                                                 <button type="button" class="btn btn-gray">요금자동계산</button>&nbsp;&nbsp;
                                                 <button type="button" class="btn btn-gray">결제</button>&nbsp;&nbsp;
                                                 <button type="button" class="btn btn-gray">삭제</button>
@@ -339,10 +325,11 @@
     </div>
 </div>
 <!--// wrap -->
-
-<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="/js/ajax.js"></script>
 <!--<script src="/js/jquery-ui.min.js"></script>-->
 <script src="/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/js/common_code.js"></script>
 <script>
     $(function () {
 
@@ -377,6 +364,11 @@
 
     });
 
+    $(function () {
+        getSelectCommonCode("accGubun","/common/accInfoList","misu");
+        getSelectCommonCode("leaveType","/common/leave","leave");
+        getSelectCommonCode("discountCode","/common/discInfoList","leave");
+    });
 </script>
 
 </body>

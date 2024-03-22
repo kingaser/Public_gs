@@ -3,9 +3,9 @@ package org.park.public_gs.dto;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+/*
+* 이용현황 조회
+* */
 @Getter
 public class ParkStatusDto {
 

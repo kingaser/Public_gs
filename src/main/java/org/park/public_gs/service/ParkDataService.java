@@ -12,6 +12,7 @@ import org.park.public_gs.vo.SpaceInfoVo;
 import org.park.public_gs.vo.UserInfoVo;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Slf4j
@@ -33,8 +34,12 @@ public class ParkDataService {
     // 입차 정보
     public void parkInsert(HttpSession session, ParkInsertDto parkInsertDto, String ipAddress) {
         String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
-        String leaveDate = parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute();
+        String leaveDate = parkInsertDto.getOutDate() != "" ?
+                parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : "";
         String insertUserId = String.valueOf(session.getAttribute("loginId"));
+
+        Calendar calendar = Calendar.getInstance();
+        int dayOfWeekNumber = calendar.get(Calendar.DAY_OF_WEEK);
 
         // user 정보 입차 요원 이름으로 검색
         UserInfoVo enterUserInfo = userMapper.findByUserName(parkInsertDto.getEnterUser());
@@ -56,20 +61,21 @@ public class ParkDataService {
                 .discountCode(parkInsertDto.getDiscountCode())
                 .leaveType(parkInsertDto.getLeaveType())
                 .leaveDate(leaveDate)
-                .leaveUser(leaveUserInfo.getUserId())
+                .leaveUser(leaveUserInfo != null ? leaveUserInfo.getUserId() : "")
                 .spotCount(parkInsertDto.getSpotCount())
                 .userRemark(parkInsertDto.getUserRemark())
                 .spotNo(parkInsertDto.getSpotNo())
-                .gasan(parkInsertDto.getGasan())
-                .discAmount(parkInsertDto.getDiscountAmount())
-                .cutAmount(parkInsertDto.getCutAmount())
-                .saleAmount(parkInsertDto.getSaleAmount())
-                .receiveAmount(parkInsertDto.getReceiveAmount())
+                .gasan(parkInsertDto.getGasan() != null ? parkInsertDto.getGasan() : 0)
+                .discAmount(parkInsertDto.getDiscountAmount() != null ? parkInsertDto.getDiscountAmount() : 0)
+                .cutAmount(parkInsertDto.getCutAmount() != null ? parkInsertDto.getCutAmount() : 0)
+                .saleAmount(parkInsertDto.getSaleAmount() != null ? parkInsertDto.getSaleAmount() : 0)
+                .receiveAmount(parkInsertDto.getReceiveAmount() != null ? parkInsertDto.getReceiveAmount() : 0)
                 .recpDt(parkInsertDto.getRectNo())
                 .remark(parkInsertDto.getRemark())
                 .insertUser(insertUserId)
                 .insertIp(ipAddress)
                 .accGubun(parkInsertDto.getAccGubun())
+                .chasu(String.valueOf(dayOfWeekNumber))
                 .build();
 
         parkDataMapper.parkDataInsert(parkdataVo);

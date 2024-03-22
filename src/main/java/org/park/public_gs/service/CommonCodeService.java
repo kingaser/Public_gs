@@ -21,14 +21,22 @@ public class CommonCodeService {
      * @return
      */
     public List<CommonCodeVo> getCommonCodeSpaceList() {
-        return commonCodeMapper.CommonCodeSpaceInfo();
+        return commonCodeMapper.commonCodeSpaceInfo();
     }
 
     public List<CommonCodeVo> getCommonCodeUserList() {
-        return commonCodeMapper.CommonCodeUserList();
+        return commonCodeMapper.commonCodeUserList();
     }
 
     public List<CommonCodeVo> getCommonCodeDiscList() {
-        return commonCodeMapper.CommonCodeDiscList();
+        return commonCodeMapper.commonCodeDiscList();
+    }
+
+    public List<CommonCodeVo> getCommonCodeAccInfoList() {
+        return commonCodeMapper.commonCodeAccInfoList();
+    }
+
+    public List<CommonCodeVo> getCommonCodeLeave() {
+        return commonCodeMapper.commonCodeLeave();
     }
 }

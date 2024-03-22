@@ -13,20 +13,4 @@
         FROM code_detail
         WHERE commonCode = #{commonCode}
     </select>
-
-    <!--<select id="CommonCodeSpaceInfo" resultType="org.park.public_gs.vo.CommonCodeVo">	&lt;!&ndash; id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 &ndash;&gt;
-        SELECT spaceNo as codeNo, spaceNm as codeNm
-        FROM space_Info	&lt;!&ndash; SQL문 작성 &ndash;&gt;
-    </select>
-
-    <select id="CommonCodeUserList" resultType="org.park.public_gs.vo.CommonCodeVo">	&lt;!&ndash; id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 &ndash;&gt;
-        SELECT seq as codeNo, userNm as codeNm
-        FROM user_Info
-        where del_Tag='0'&lt;!&ndash; SQL문 작성 &ndash;&gt;
-    </select>
-
-    <select id="CommonCodeDiscList" resultType="org.park.public_gs.vo.CommonCodeVo">	&lt;!&ndash; id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 &ndash;&gt;
-        SELECT discCode as codeNo, discNm as codeNm
-        FROM discount_Info	&lt;!&ndash; SQL문 작성 &ndash;&gt;
-    </select>-->
 </mapper>

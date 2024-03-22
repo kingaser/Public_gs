@@ -40,4 +40,20 @@ public class CommonCodeController {
     return CommonCodeDiscList;
   }
 
+  // 결제 구분
+  @GetMapping("/common/accInfoList")
+  public List<CommonCodeVo> getCommonCodeAccInfoList() {
+    List<CommonCodeVo> commonCodeAccInfoList = commonCodeService.getCommonCodeAccInfoList();
+    log.info("common_accInfoList : ", commonCodeAccInfoList);
+    return commonCodeAccInfoList;
+  }
+
+  // 출차 유형
+  @GetMapping("/common/leave")
+  public List<CommonCodeVo> getCommonCodeLeave() {
+    List<CommonCodeVo> commonCodeLeaveList = commonCodeService.getCommonCodeLeave();
+    log.info("common_leaveType : ", commonCodeLeaveList);
+    return commonCodeLeaveList;
+  }
+
 }

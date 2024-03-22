@@ -39,7 +39,7 @@ function fnAjaxJson(url,para)  // 호출할 페이지 , 던질 파라미터 json
         ,url : url
         ,dataType : "json"
         ,data : para
-        ,contentType : "application/x-www-form-urlencoded;charset=UTF-8"
+        ,contentType : "application/json"
         ,error : function(request,status,error){
             //alert("ajax 실행중 오류가 발생했습니다.");
             alert("error : " + error);

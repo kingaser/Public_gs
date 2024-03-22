@@ -8,10 +8,14 @@ import java.util.List;
 @Mapper
 public interface CommonCodeMapper {
 
-    List<CommonCodeVo> CommonCodeSpaceInfo();
+    List<CommonCodeVo> commonCodeSpaceInfo();
 
-    List<CommonCodeVo> CommonCodeUserList();
+    List<CommonCodeVo> commonCodeUserList();
 
-    List<CommonCodeVo> CommonCodeDiscList();
+    List<CommonCodeVo> commonCodeDiscList();
+
+    List<CommonCodeVo> commonCodeAccInfoList();
+
+    List<CommonCodeVo> commonCodeLeave();
 
 }
