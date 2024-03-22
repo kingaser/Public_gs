@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.park.public_gs.mapper.ParkDataHistoryMapper" >	<!-- mapper 인터페이스가 위치하는 경로 -->
+
+    <!-- 이용 현황 신규 저장 History -->
+    <insert id="parkDataHistoryInsert" parameterType="org.park.public_gs.vo.ParkDataVo">
+        INSERT INTO parkdata
+            (
+                 serialNo,
+                 spaceNo,
+                 carNo,
+                 enterType,
+                 enterDate,
+                 enterUser,
+                 discountCode,
+                 leaveType,
+                 leaveDate,
+                 leaveUser,
+                 spotCount,
+                 userRemark,
+                 spotNo,
+                 gasan,
+                 discAmount,
+                 cutAmount,
+                 saleAmount,
+                 receiveAmount,
+                 recpDt,
+                 remark,
+                 insertUser,
+                 insertDate,
+                 insertIp,
+                 del_Tag
+            )
+        VALUES
+            (
+                #{serialNo},
+                #{spaceNo},
+                #{carNo},
+                3,
+                #{enterDate},
+                #{enterUser},
+                #{discountCode},
+                #{leaveType},
+                #{leaveDate},
+                #{leaveUser},
+                #{spotCount},
+                #{userRemark},
+                #{spotNo},
+                #{gasan},
+                #{discountAmount},
+                #{cutAmount},
+                #{saleAmount}.
+                #{receiveAmount} #{recpDt},
+                #{insertUser},
+                now(),
+                #{insertIp},
+                0
+            )
+    </insert>
+
+</mapper>

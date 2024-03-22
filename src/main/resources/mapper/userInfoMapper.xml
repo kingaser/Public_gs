@@ -44,4 +44,9 @@
         SELECT * FROM user_Info
         where userId=#{userId}
     </select>
+
+    <select id="findByUserName" resultType="org.park.public_gs.vo.UserInfoVo" parameterType="String">
+        SELECT * FROM user_Info
+        WHERE userNm=#{userNm}
+    </select>
 </mapper>

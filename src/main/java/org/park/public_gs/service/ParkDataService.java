@@ -1,18 +1,17 @@
 package org.park.public_gs.service;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.park.public_gs.dto.ParkInsertDto;
+import org.park.public_gs.dto.ParkSearchDto;
 import org.park.public_gs.dto.ParkStatusDto;
-import org.park.public_gs.mapper.ParkDataMapper;
-import org.park.public_gs.mapper.SpaceMapper;
+import org.park.public_gs.mapper.*;
 import org.park.public_gs.vo.ParkDataVo;
 import org.park.public_gs.vo.SpaceInfoVo;
+import org.park.public_gs.vo.UserInfoVo;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -20,39 +19,66 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ParkDataService {
 
+    private final ParkDataHistoryMapper parkDataHistoryMapper;
     private final ParkDataMapper parkDataMapper;
+    private final SerialMapper serialMapper;
     private final SpaceMapper spaceMapper;
+    private final UserMapper userMapper;
 
+    // 이용 현황 전체 조회
     public List<ParkStatusDto> getParkdataList() {
         return parkDataMapper.getParkDataList();
     }
 
-    public void parkInsert(ParkInsertDto parkInsertDto) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-        Date enterDate = null;
+    // 입차 정보
+    public void parkInsert(HttpSession session, ParkInsertDto parkInsertDto, String ipAddress) {
+        String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
+        String leaveDate = parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute();
+        String insertUserId = String.valueOf(session.getAttribute("loginId"));
 
-        try {
-            enterDate = format.parse(parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + " " + parkInsertDto.getEnterMinute());
-        } catch (ParseException e) {
-            log.error(e.getMessage());
-        }
+        // user 정보 입차 요원 이름으로 검색
+        UserInfoVo enterUserInfo = userMapper.findByUserName(parkInsertDto.getEnterUser());
+        UserInfoVo leaveUserInfo = userMapper.findByUserName(parkInsertDto.getLeaverUser());
 
-        SpaceInfoVo spaceInfo = spaceMapper.getSpaceInfo(parkInsertDto.getSpaceNm()).orElseThrow(
-                () -> new NullPointerException("404, 해당 추자장이 없습니다.")
-        );
+        // 주차장 정보 주차장 명으로 검색
+        SpaceInfoVo spaceInfo = spaceMapper.getSpaceInfo(parkInsertDto.getSpaceNm());
 
+        // Serial Number
+        String serialNo = serialMapper.getParkDataSeq();
+
+        // ParkDataVo 객체 생성 후 저장
         ParkDataVo parkdataVo = ParkDataVo.builder()
+                .serialNo(serialNo)
                 .spaceNo(spaceInfo.getSpaceNo())
-                .enterDate(enterDate)
-                .enterUser(parkInsertDto.getEnterUser())
                 .carNo(parkInsertDto.getCarNo())
+                .enterDate(enterDate)
+                .enterUser(enterUserInfo.getUserId())
+                .discountCode(parkInsertDto.getDiscountCode())
+                .leaveType(parkInsertDto.getLeaveType())
+                .leaveDate(leaveDate)
+                .leaveUser(leaveUserInfo.getUserId())
                 .spotCount(parkInsertDto.getSpotCount())
+                .userRemark(parkInsertDto.getUserRemark())
                 .spotNo(parkInsertDto.getSpotNo())
-                .recpNo(parkInsertDto.getRectNo())
                 .gasan(parkInsertDto.getGasan())
-                .remark(parkInsertDto.getRemark())
+                .discAmount(parkInsertDto.getDiscountAmount())
+                .cutAmount(parkInsertDto.getCutAmount())
+                .saleAmount(parkInsertDto.getSaleAmount())
                 .receiveAmount(parkInsertDto.getReceiveAmount())
+                .recpDt(parkInsertDto.getRectNo())
+                .remark(parkInsertDto.getRemark())
+                .insertUser(insertUserId)
+                .insertIp(ipAddress)
+                .accGubun(parkInsertDto.getAccGubun())
                 .build();
+
         parkDataMapper.parkDataInsert(parkdataVo);
+        parkDataHistoryMapper.parkDataHistoryInsert(parkdataVo);
     }
+
+    // 이용 현황 검색
+    public List<ParkStatusDto> getParkdataSearchList(ParkSearchDto parkSearchDto) {
+        return parkDataMapper.getParkDataSearchList(parkSearchDto);
+    }
+
 }

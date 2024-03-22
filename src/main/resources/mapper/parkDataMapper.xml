@@ -3,40 +3,107 @@
 
 <mapper namespace="org.park.public_gs.mapper.ParkDataMapper" >	<!-- mapper 인터페이스가 위치하는 경로 -->
 
+    <!-- 이용 현황 신규 저장 -->
     <insert id="parkDataInsert" parameterType="org.park.public_gs.vo.ParkDataVo">
-        Insert into user_Info
+        INSERT INTO parkdata
             (
-             spaceNo,
-             carNo,
-             enterType,
-             enterDate,
-             enterUser,
-             discountCode,
-             leaveType,
-             leaveDate,
-             leaveUser,
-             insertIP,
-             del_Tag
+                 serialNo,
+                 spaceNo,
+                 carNo,
+                 enterType,
+                 enterDate,
+                 enterUser,
+                 discountCode,
+                 leaveType,
+                 leaveDate,
+                 leaveUser,
+                 spotCount,
+                 userRemark,
+                 spotNo,
+                 gasan,
+                 discAmount,
+                 cutAmount,
+                 saleAmount,
+                 receiveAmount,
+                 recpDt,
+                 remark,
+                 insertUser,
+                 insertDate,
+                 insertIp,
+                 del_Tag
             )
-        values
+        VALUES
             (
-             #{spaceNm},
-             #{spaceSize},
-             #{monthSpace},
-             #{spaceMngType},
-             #{address},
-             "cha",
-             now(),
-             null,
-             "0"
+                #{serialNo},
+                #{spaceNo},
+                #{carNo},
+                3,
+                #{enterDate},
+                #{enterUser},
+                #{discountCode},
+                #{leaveType},
+                #{leaveDate},
+                #{leaveUser},
+                #{spotCount},
+                #{userRemark},
+                #{spotNo},
+                #{gasan},
+                #{discountAmount},
+                #{cutAmount},
+                #{saleAmount}.
+                #{receiveAmount} #{recpDt},
+                #{insertUser},
+                now(),
+                #{insertIp},
+                0
             )
     </insert>
 
+    <!-- 이용 현황 전체 데이터 조회 -->
     <select id="getParkDataList" resultType="org.park.public_gs.dto.ParkStatusDto">
         SELECT s.spaceNm, p.EnterDate, p.LeaveDate, p.carNo, p.RecpDt, p.accGubun, p.SaleAmount, p.DiscAmount, p.Gasan
         FROM parkdata p
             JOIN space_info s
                 ON p.spaceNo = s.spaceNo
+    </select>
+
+    <!--    private String carNo;       // 차량번호
+    private String spaceNm;     // 주차장명
+    private String accGubun;    // 미수구분
+    private Date enterDate;     // 입차날짜
+    private Date outDate;       // 출차날짜-->
+    <!-- 이용 현황 검색 -->
+    <select id="getParkDataSearchList" parameterType="org.park.public_gs.dto.ParkSearchDto" resultType="org.park.public_gs.dto.ParkStatusDto">
+        SELECT s.spaceNm, p.EnterDate, p.LeaveDate, p.carNo, p.RecpDt, p.accGubun, p.SaleAmount, p.DiscAmount, p.Gasan
+        FROM parkdata p
+            JOIN space_info s
+                ON p.spaceNo = s.spaceNo
+        <choose>
+            <when test="carNo != null">
+                p.carNo = #{carNo}
+            </when>
+            <otherwise>
+                p.carNo = null;
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="spaceNm != null">
+                s.spaceNm = #{spaceNm}
+            </when>
+            <otherwise>
+                s.spacenm = null;
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="accGubun != null">
+                s.accGubun = #{accGubun}
+            </when>
+            <otherwise>
+                s.accGubun = null;
+            </otherwise>
+        </choose>
+        WHERE p.enterDate LIKE '%' || #{enterDate} || '%'
+        AND p.leaveDate LIKE '%' || #{outDate} || '%'
     </select>
 
 </mapper>

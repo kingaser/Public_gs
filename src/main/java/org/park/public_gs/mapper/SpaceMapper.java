@@ -14,5 +14,5 @@ public interface SpaceMapper {
 
     SpaceInfoVo spaceInfoSelect(Integer spaceNo);
 
-    Optional<SpaceInfoVo> getSpaceInfo(String spaceNm);
+    SpaceInfoVo getSpaceInfo(String spaceNm);
 }

@@ -15,4 +15,6 @@ public interface UserMapper {
 
     UserInfoVo findByLoginId(String userId);
 
+    UserInfoVo findByUserName(String enterUser);
+
 }

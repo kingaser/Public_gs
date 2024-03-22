@@ -1,8 +1,10 @@
 package org.park.public_gs.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.park.public_gs.dto.ParkInsertDto;
+import org.park.public_gs.dto.ParkSearchDto;
 import org.park.public_gs.dto.ParkStatusDto;
 import org.park.public_gs.service.ParkDataService;
 import org.springframework.stereotype.Controller;
@@ -30,9 +32,19 @@ public class ParkDataController {
 
     // 입차 정보
     @PostMapping("/park/insert")
-    public String parkInsert(ParkInsertDto parkInsertDto) {
-        parkdataService.parkInsert(parkInsertDto);
-        return "redirect:park/status";
+    public String parkInsert(HttpServletRequest request, ParkInsertDto parkInsertDto) {
+        String ipAddress = request.getRemoteAddr();
+        parkdataService.parkInsert(request.getSession(), parkInsertDto, ipAddress);
+        return "redirect:/park/status";
+    }
+
+    // 이용 현황 검색
+    @GetMapping("/park/search")
+    public String parkSearch(ParkSearchDto parkSearchDto, Model model) {
+        List<ParkStatusDto> parkStatusList = parkdataService.getParkdataSearchList(parkSearchDto);
+        model.addAttribute("searchList", parkStatusList);
+        log.info("searchList", parkStatusList);
+        return "park/status";
     }
 
 }

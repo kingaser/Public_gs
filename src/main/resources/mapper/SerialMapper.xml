@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.park.public_gs.mapper.SerialMapper" >	<!-- mapper 인터페이스가 위치하는 경로 -->
+    <!--  Procedure 호출(Serial Number : ParkData) -->
+    <select id="getParkDataSeq" resultType="String">
+        CALL Get_Seq ("parkdata", @result)
+    </select>
+
+    <!--  Procedure 호출(Serial Number : Bill) -->
+    <select id="getBillSeq" resultType="String">
+        CALL Get_Seq ("bill", @result)
+    </select>
+
+    <!--  Procedure 호출(Serial Number : Jeonpyo) -->
+    <select id="getJeonpyoSeq" resultType="String">
+        CALL Get_Seq ("jeonpyo", @result)
+    </select>
+
+    <!--  Procedure 호출(Serial Number : MonthTerm) -->
+    <select id="getMonthTermSeq" resultType="String">
+        CALL Get_Seq ("monthtrem", @result)
+    </select>
+</mapper>
