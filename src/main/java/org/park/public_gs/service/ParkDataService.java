@@ -35,7 +35,9 @@ public class ParkDataService {
     public void parkInsert(HttpSession session, ParkInsertDto parkInsertDto, String ipAddress) {
         String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
         String leaveDate = parkInsertDto.getOutDate() != "" ?
-                parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : "";
+                parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : null;
+        String recpDt = parkInsertDto.getRecpDt() != "" ? parkInsertDto.getRecpDt() : null;
+
         String insertUserId = String.valueOf(session.getAttribute("loginId"));
 
         Calendar calendar = Calendar.getInstance();
@@ -65,12 +67,13 @@ public class ParkDataService {
                 .spotCount(parkInsertDto.getSpotCount())
                 .userRemark(parkInsertDto.getUserRemark())
                 .spotNo(parkInsertDto.getSpotNo())
-                .gasan(parkInsertDto.getGasan() != null ? parkInsertDto.getGasan() : 0)
-                .discAmount(parkInsertDto.getDiscountAmount() != null ? parkInsertDto.getDiscountAmount() : 0)
-                .cutAmount(parkInsertDto.getCutAmount() != null ? parkInsertDto.getCutAmount() : 0)
-                .saleAmount(parkInsertDto.getSaleAmount() != null ? parkInsertDto.getSaleAmount() : 0)
-                .receiveAmount(parkInsertDto.getReceiveAmount() != null ? parkInsertDto.getReceiveAmount() : 0)
-                .recpDt(parkInsertDto.getRectNo())
+                .gasan(parkInsertDto.getGasan())
+                .discAmount(parkInsertDto.getDiscountAmount())
+                .cutAmount(parkInsertDto.getCutAmount())
+                .saleAmount(parkInsertDto.getSaleAmount())
+                .receiveAmount(parkInsertDto.getReceiveAmount())
+                .recpDt(parkInsertDto.getRecpDt())
+                .recpDt(recpDt)
                 .remark(parkInsertDto.getRemark())
                 .insertUser(insertUserId)
                 .insertIp(ipAddress)

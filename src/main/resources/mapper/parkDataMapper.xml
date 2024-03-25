@@ -6,55 +6,13 @@
     <!-- 이용 현황 신규 저장 -->
     <insert id="parkDataInsert" parameterType="org.park.public_gs.vo.ParkDataVo">
         INSERT INTO parkdata
-        (serialNo,
-         spaceNo,
-         carNo,
-         enterType,
-         enterDate,
-         enterUser,
-         discountCode,
-         leaveType,
-         leaveDate,
-         leaveUser,
-         spotCount,
-         userRemark,
-         spotNo,
-         gasan,
-         discAmount,
-         cutAmount,
-         saleAmount,
-         receiveAmount,
-         recpDt,
-         remark,
-         insertUser,
-         insertDate,
-         insertIp,
-         del_Tag,
-         chasu)
-        VALUES (#{serialNo},
-                #{spaceNo},
-                #{carNo},
-                3,
-                #{enterDate},
-                #{enterUser},
-                #{discountCode},
-                #{leaveType},
-                #{leaveDate},
-                #{leaveUser},
-                #{spotCount},
-                #{userRemark},
-                #{spotNo},
-                #{gasan},
-                #{discAmount},
-                #{cutAmount},
-                #{saleAmount},
-                #{receiveAmount},
-                #{recpDt},
-                #{insertUser},
-                now(),
-                #{insertIp},
-                0,
-                #{chasu})
+        (serialNo, spaceNo, carNo, enterType, enterDate, enterUser, discountCode, leaveType,
+         leaveDate, leaveUser, spotCount, userRemark, spotNo, gasan, discAmount, cutAmount,
+         saleAmount, receiveAmount, recpDt, remark, insertUser, insertDate, insertIp, del_Tag, chasu)
+        VALUES
+        (#{serialNo}, #{spaceNo}, #{carNo}, 3, #{enterDate}, #{enterUser}, #{discountCode}, #{leaveType},
+         #{leaveDate}, #{leaveUser}, #{spotCount}, #{userRemark}, #{spotNo}, #{gasan}, #{discAmount}, #{cutAmount},
+         #{saleAmount}, #{receiveAmount}, #{recpDt}, #{remark}, #{insertUser}, now(), #{insertIp}, 0, #{chasu})
     </insert>
 
     <!-- 이용 현황 전체 데이터 조회 -->
