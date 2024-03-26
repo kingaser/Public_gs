@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,52 +39,7 @@
     <!-- sub-wrap //-->
     <div class="sub-wrap">
         <!-- menu //-->
-        <div class="left-wrap">
-            <ul class="submenu-wrap">
-                <li><a href="#" class="active">기본정보</a>
-                    <ul>
-                        <li><a href="#">품목관리</a></li>
-                        <li><a href="/code/codeManage">코드관리</a></li>
-                        <li><a href="/park/status" class="active">이용현황</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">월정기관리</a>
-                    <ul>
-                        <li><a href="#">서브메뉴</a></li>
-                        <li><a href="#">서브메뉴</a></li>
-                        <li><a href="#">서브메뉴</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">일주차관리</a>
-                    <ul>
-                        <li><a href="#">서브메뉴</a></li>
-                        <li><a href="#">서브메뉴</a></li>
-                        <li><a href="#">서브메뉴</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">수입금관리</a>
-                    <ul>
-                        <li><a href="#">서브메뉴</a></li>
-                        <li><a href="#">서브메뉴</a></li>
-                        <li><a href="#">서브메뉴</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">레포트</a>
-                    <ul>
-                        <li><a href="#">서브메뉴</a></li>
-                        <li><a href="#">서브메뉴</a></li>
-                        <li><a href="#">서브메뉴</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">민간위탁</a>
-                    <ul>
-                        <li><a href="#">서브메뉴</a></li>
-                        <li><a href="#">서브메뉴</a></li>
-                        <li><a href="#">서브메뉴</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+        <div th:replace="~{/menu/menu.html :: menu}"></div>
         <!--// menu -->
         <!-- content //-->
         <div class="right-wrap">
@@ -155,16 +110,17 @@
                                     </thead>
                                     <tbody>
                                     <tr th:if="${#lists.size(parkStatusList)} > 0"
-                                        th:each="parkStatusList : ${parkStatusList}">
+                                        th:each="parkStatusList : ${parkStatusList}"
+                                        th:onclick="getStatusDetail([[${parkStatusList.serialNo}]])">
                                         <td th:text="${parkStatusList.spaceNm}"></td>
-                                        <td th:text="${parkStatusList.EnterDate}"></td>
-                                        <td th:text="${parkStatusList.LeaveDate}"></td>
+                                        <td th:text="${parkStatusList.enterDate}" ></td>
+                                        <td th:text="${parkStatusList.leaveDate}"></td>
                                         <td th:text="${parkStatusList.carNo}"></td>
-                                        <td th:text="${parkStatusList.RecpNo}"></td>
+                                        <td th:text="${parkStatusList.recpDt}"></td>
                                         <td th:text="${parkStatusList.accGubun}"></td>
-                                        <td th:text="${parkStatusList.SaleAmount}"></td>
-                                        <td th:text="${parkStatusList.DiscAmount}"></td>
-                                        <td th:text="${parkStatusList.Gasan}"></td>
+                                        <td th:text="${parkStatusList.saleAmount}"></td>
+                                        <td th:text="${parkStatusList.discAmount}"></td>
+                                        <td th:text="${parkStatusList.gasan}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -186,50 +142,47 @@
                                     <tr>
                                         <th>입차일시</th>
                                         <td>
-                                            <input type="text" class="w100p datepicker" name="enterDate">
+                                            <input type="text" class="w100p datepicker" name="enterDate" id="enterDate">
                                         </td>
                                         <th>입차시간</th>
                                         <td>
                                             <div style="display: flex; justify-content: center">
-                                                <input type="text" class="w50 datepicker" name="enterHour" value="09">시
-                                                <input type="text" class="w50 datepicker" name="enterMinute" value="00">분
+                                                <input type="text" class="w50 datepicker" name="enterHour" id="enterHour" value="09">시
+                                                <input type="text" class="w50 datepicker" name="enterMinute" id="enterMinute" value="00">분
                                             </div>
                                         </td>
                                         <th>입차요원</th>
-                                        <td><input type="text" class="w100p" name="enterUser" value=""></td>
+                                        <td><input type="text" class="w100p" name="enterUser" id="enterUser" value=""></td>
                                         <th>주차장명</th>
-                                        <td><input type="text" class="w100p" name="spaceNm" value=""></td>
+                                        <td><input type="text" class="w100p" name="spaceNm" id="spaceNm" value=""></td>
                                     </tr>
                                     <tr>
                                         <th>차량번호</th>
-                                        <td><input type="text" class="w100p" name="carNo" value=""></td>
+                                        <td><input type="text" class="w100p" name="carNo" id="carNo" value=""></td>
                                         <th>사용구획</th>
-                                        <td><input type="text" class="w100p" name="spotCount" value="1"></td>
+                                        <td><input type="text" class="w100p" name="spotCount" id="spotCount" value="1"></td>
                                         <th>구획번호</th>
-                                        <td><input type="text" class="w100p" name="spotNo" value="1"></td>
+                                        <td><input type="text" class="w100p" name="spotNo" id="spotNo" value="1"></td>
                                         <th>할인유형</th>
                                         <td>
-                                            <select class="w100p" name="discountCode">
-                                                <option value="DC001">할인없음</option>
-                                                <option value="DC002">장애인</option>
-                                                <option value="DC003">국가유공자</option>
+                                            <select id="discountCode" name="discountCode">
                                             </select>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>출차일자</th>
                                         <td>
-                                            <input type="text" class="w100p datepicker" name="outDate" value="">
+                                            <input type="text" class="w100p datepicker" name="outDate" id="outDate" value="">
                                         </td>
                                         <th>출차시간</th>
                                         <td>
                                             <div style="display: flex; justify-content: center">
-                                                <input type="text" class="w50p datepicker" name="outHour" value="">시
-                                                <input type="text" class="w50p datepicker" name="outMinute" value="">분
+                                                <input type="text" class="w50p datepicker" name="outHour" id="outHour" value="">시
+                                                <input type="text" class="w50p datepicker" name="outMinute" id="outMinute" value="">분
                                             </div>
                                         </td>
                                         <th>출차요원</th>
-                                        <td><input type="text" class="w100p" name="leaverUser"></td>
+                                        <td><input type="text" class="w100p" name="leaverUser" id="leaverUser"></td>
                                         <th>출차유형</th>
                                         <td>
                                             <select id="leaveType" name="leaveType" ></select>
@@ -237,31 +190,29 @@
                                     </tr>
                                     <tr>
                                         <th>영수번호</th>
-                                        <td><input type="text" class="w100p" name="rectNo"></td>
+                                        <td><input type="text" class="w100p" name="recpNo" id="recpNo"></td>
                                         <th>가산금액</th>
-                                        <td><input type="text" class="w100p" name="gasan"></td>
+                                        <td><input type="text" class="w100p" name="gasan" id="gasan"></td>
                                         <th>절사요금</th>
-                                        <td><input type="text" class="w100p" name="cutAmount"></td>
+                                        <td><input type="text" class="w100p" name="cutAmount" id="cutAmount"></td>
                                         <th>이용금액</th>
-                                        <td><input type="text" class="w100p" name="saleAmount"></td>
+                                        <td><input type="text" class="w100p" name="saleAmount" id="saleAmount"></td>
                                     </tr>
                                     <tr>
-                                        <th>카드</th>
-                                        <td><input type="text" class="w100p" name="cardAmount"></td>
-                                        <th>현금</th>
-                                        <td><input type="text" class="w100p" name="cashAmount"></td>
+                                        <th></th>
+                                        <td></td>
                                         <th>할인금액</th>
-                                        <td><input type="text" class="w100p" name="discountAmount"></td>
+                                        <td><input type="text" class="w100p" name="discAmount" id="discAmount"></td>
                                         <th>청구금액</th>
                                         <td><input type="text" class="w100p" name=""></td>
+                                        <th>결제금액</th>
+                                        <td><input type="text" class="w100p" name="receiveAmount" id="receiveAmount"></td>
                                     </tr>
                                     <tr>
                                         <th>요원메모</th>
-                                        <td><input type="text" class="w100p" name="userRemark"></td>
+                                        <td colspan="3"><input type="text" class="w100p" name="userRemark" id="userRemark"></td>
                                         <th>관리자메모</th>
-                                        <td><input type="text" class="w100p" name="remark"></td>
-                                        <th>결제금액</th>
-                                        <td><input type="text" class="w100p" name="receiveAmount"></td>
+                                        <td colspan="3"><input type="text" class="w100p" name="remark" id="remark"></td>
                                     </tr>
                                     <tr>
                                         <th>가상계좌번호</th>
@@ -291,9 +242,9 @@
                                             <select id="accGubun" name="accGubun"></select>
                                         </td>
                                         <th>결제일</th>
-                                        <td><input type="text" class="w100p" name="recpDt"></td>
+                                        <td><input type="text" class="w100p" name="recpDt" id="recpDt"></td>
                                         <th>고지상태</th>
-                                        <td><input type="text" class="w100p" name="gojiState"></td>
+                                        <td><input type="text" class="w100p" name="gojiState" id="gojiState"></td>
                                         <th></th>
                                         <td>
                                             <div style="display: flex; justify-content: right">
@@ -307,8 +258,8 @@
 
                                 <div class="btn-wrap">
                                     <button type="submit" class="btn btn-mint">신규</button>
-                                    <button type="button" class="btn btn-red">저장</button>
-                                    <button type="button" class="btn btn-black">삭제</button>
+                                    <button type="submit" class="btn btn-red">저장</button>
+                                    <button type="submit" class="btn btn-black">삭제</button>
                                 </div>
 
                             </form>
@@ -368,8 +319,48 @@
         getSelectCommonCode("accGubun","/common/accInfoList","misu");
         getSelectCommonCode("leaveType","/common/leave","leave");
         getSelectCommonCode("discountCode","/common/discInfoList","leave");
+        getStatusDetail("serialNo")
     });
-</script>
 
+    function getStatusDetail(serialNo) {
+        let serial = serialNo;
+
+        $.ajax({
+            type: "GET",
+            url: `/park/status/`+ serial,
+            contentType: "application/json",
+            success: function (result) {
+                console.log(result);
+                $("#enterDate").val(result.enterDate.substring(0, 10));
+                $("#enterHour").val(result.enterDate.substring(11, 13));
+                $("#enterMinute").val(result.enterDate.substring(14, 16));
+                $("#enterUser").val(result.enterUser);
+                $("#spaceNm").val(result.spaceNm);
+                $("#carNo").val(result.carNo);
+                $("#spotCount").val(result.spotCount);
+                $("#spotNo").val(result.spotNo);
+                $("#discountCode").val(result.discountCode);
+                $("#outDate").val(result.leaveDate.substring(0, 10));
+                $("#outHour").val(result.leaveDate.substring(11, 13));
+                $("#outMinute").val(result.leaveDate.substring(14, 16));
+                $("#leaverUser").val(result.leaverUser);
+                $("#recpNo").val(result.recpNo);
+                $("#gasan").val(result.gasan);
+                $("#cutAmount").val(result.cutAmount);
+                $("#saleAmount").val(result.saleAmount);
+                $("#discAmount").val(result.discAmount);
+                $("#receiveAmount").val(result.receiveAmount);
+                $("#userRemark").val(result.userRemark);
+                $("#remark").val(result.remark);
+                $("#accGubun").val(result.accGubun);
+                $("#recpDt").val(result.recpDt);
+                $("#gojiState").val(result.gojiState);
+            },
+            error: function (err) {
+                console.log('에러뜸');
+            }
+        })
+    }
+</script>
 </body>
 </html>

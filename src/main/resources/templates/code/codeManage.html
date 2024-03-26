@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,7 +38,8 @@
     <!-- sub-wrap //-->
     <div class="sub-wrap">
         <!-- menu //-->
-        <div class="left-wrap">
+        <div th:replace="~{/menu/menu.html :: menu}"></div>
+        <!--<div class="left-wrap">
             <ul class="submenu-wrap">
                 <li><a href="#" class="active">기본정보</a>
                     <ul>
@@ -83,7 +84,7 @@
                     </ul>
                 </li>
             </ul>
-        </div>
+        </div>-->
         <!--// menu -->
         <!-- content //-->
         <div class="right-wrap">
@@ -349,8 +350,10 @@
     <!--// modal-popup -->
 </div>
 
+<script type="text/javascript" src="/js/ajax.js"></script>
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/js/common_code.js"></script>
 <script>
     $(function (){
 
@@ -403,6 +406,10 @@
         });
 
     });
+
+    $(function () {
+        getMenu('menu')
+    })
 </script>
 
 </body>

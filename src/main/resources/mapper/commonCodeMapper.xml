@@ -2,33 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.park.public_gs.mapper.CommonCodeMapper">	<!-- mapper 인터페이스가 위치하는 경로 -->
-    <select id="commonCodeSpaceInfo" resultType="org.park.public_gs.vo.CommonCodeVo">	<!-- id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 -->
+
+    <!--  주차장 정보 조회  -->
+    <!-- id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 -->
+    <select id="commonCodeSpaceInfo" resultType="org.park.public_gs.vo.CommonCodeVo">
+        <!-- SQL문 작성 -->
         SELECT spaceNo as codeNo, spaceNm as codeNm
-        FROM space_Info	<!-- SQL문 작성 -->
+        FROM space_Info
+        WHERE del_Tag='0'
     </select>
 
-    <select id="commonCodeUserList" resultType="org.park.public_gs.vo.CommonCodeVo">	<!-- id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 -->
+    <!--  유저 정보 조회  -->
+    <select id="commonCodeUserList" resultType="org.park.public_gs.vo.CommonCodeVo">
         SELECT seq as codeNo, userNm as codeNm
         FROM user_Info
-        where del_Tag='0'<!-- SQL문 작성 -->
+        WHERE del_Tag='0'
     </select>
 
-    <select id="commonCodeDiscList" resultType="org.park.public_gs.vo.CommonCodeVo">	<!-- id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 -->
+    <!--  할인 유형 조회  -->
+    <select id="commonCodeDiscList" resultType="org.park.public_gs.vo.CommonCodeVo">
         SELECT discCode as codeNo, discNm as codeNm
-        FROM discount_Info	<!-- SQL문 작성 -->
+        FROM discount_Info
+        WHERE del_Tag='0'
     </select>
 
-    <select id="commonCodeAccInfoList" resultType="org.park.public_gs.vo.CommonCodeVo">	<!-- id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 -->
+    <!--  결제 구분 조회  -->
+    <select id="commonCodeAccInfoList" resultType="org.park.public_gs.vo.CommonCodeVo">
         SELECT code as codeNo, codeName as codeNm
         FROM code_detail
-        WHERE commonCode = '00007'<!-- SQL문 작성 -->
+        WHERE commonCode = '00007'
+            AND del_Tag='0'
+            AND useYN='Y'
     </select>
 
-    <select id="commonCodeLeave" resultType="org.park.public_gs.vo.CommonCodeVo">	<!-- id: mapper 인터페이스에서 선언한 메서드 이름과 같아야 한다. resultType: VO 클래스가 위치하는 경로 -->
+    <!--  출차 유형 조회  -->
+    <select id="commonCodeLeave" resultType="org.park.public_gs.vo.CommonCodeVo">
         SELECT code as codeNo, codeName as codeNm
         FROM code_detail
         WHERE commonCode = '00005'
-        ORDER BY sortNum <!-- SQL문 작성 -->
+            AND del_Tag='0'
+        ORDER BY sortNum
     </select>
 
 

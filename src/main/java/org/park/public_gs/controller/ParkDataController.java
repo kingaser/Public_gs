@@ -3,14 +3,14 @@ package org.park.public_gs.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.park.public_gs.dto.ParkDataDto;
 import org.park.public_gs.dto.ParkInsertDto;
 import org.park.public_gs.dto.ParkSearchDto;
 import org.park.public_gs.dto.ParkStatusDto;
 import org.park.public_gs.service.ParkDataService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,4 +47,16 @@ public class ParkDataController {
         return "park/status";
     }
 
+    // 선택한 목록 현황
+    @GetMapping("/park/status/{serialNo}")
+    @ResponseBody
+    public ParkDataDto parkStatusDetail(@PathVariable("serialNo") String serialNo) {
+        return parkdataService.getParkDataDetail(serialNo);
+    }
+
+    @DeleteMapping("/park/status/delete/{serialNo}")
+    public String parkDataDelete(@PathVariable("serialNo") String serialNo) {
+        parkdataService.deleteParkData(serialNo);
+        return "redirect:/park/status";
+    }
 }

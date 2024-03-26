@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;">
+    <meta property="og:image" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{../../styles/jquery.dataTables.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../../styles/layout.css}">
+</head>
+<body>
+<!-- menu //-->
+<div th:fragment="menu" class="left-wrap">
+    <ul class="submenu-wrap">
+        <li><a href="#" class="active">기본정보</a>
+            <ul>
+                <li><a href="#">품목관리</a></li>
+                <li><a href="/code/codeManage" class="active">코드관리</a></li>
+                <li><a href="/park/status">이용현황</a></li>
+            </ul>
+        </li>
+        <li><a href="#">월정기관리</a>
+            <ul>
+                <li><a href="#">등록</a></li>
+                <li><a href="#">서브메뉴</a></li>
+                <li><a href="#">서브메뉴</a></li>
+            </ul>
+        </li>
+        <li><a href="#">일주차관리</a>
+            <ul>
+                <li><a href="#">서브메뉴</a></li>
+                <li><a href="#">서브메뉴</a></li>
+                <li><a href="#">서브메뉴</a></li>
+            </ul>
+        </li>
+        <li><a href="#">수입금관리</a>
+            <ul>
+                <li><a href="#">서브메뉴</a></li>
+                <li><a href="#">서브메뉴</a></li>
+                <li><a href="#">서브메뉴</a></li>
+            </ul>
+        </li>
+        <li><a href="#">레포트</a>
+            <ul>
+                <li><a href="#">서브메뉴</a></li>
+                <li><a href="#">서브메뉴</a></li>
+                <li><a href="#">서브메뉴</a></li>
+            </ul>
+        </li>
+        <li><a href="#">민간위탁</a>
+            <ul>
+                <li><a href="#">서브메뉴</a></li>
+                <li><a href="#">서브메뉴</a></li>
+                <li><a href="#">서브메뉴</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<!--// menu -->
+</body>
+</html>

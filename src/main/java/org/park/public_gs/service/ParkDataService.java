@@ -3,6 +3,7 @@ package org.park.public_gs.service;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.park.public_gs.dto.ParkDataDto;
 import org.park.public_gs.dto.ParkInsertDto;
 import org.park.public_gs.dto.ParkSearchDto;
 import org.park.public_gs.dto.ParkStatusDto;
@@ -36,7 +37,6 @@ public class ParkDataService {
         String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
         String leaveDate = parkInsertDto.getOutDate() != "" ?
                 parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : null;
-        String recpDt = parkInsertDto.getRecpDt() != "" ? parkInsertDto.getRecpDt() : null;
 
         String insertUserId = String.valueOf(session.getAttribute("loginId"));
 
@@ -68,17 +68,18 @@ public class ParkDataService {
                 .userRemark(parkInsertDto.getUserRemark())
                 .spotNo(parkInsertDto.getSpotNo())
                 .gasan(parkInsertDto.getGasan())
-                .discAmount(parkInsertDto.getDiscountAmount())
+                .discAmount(parkInsertDto.getDiscAmount())
                 .cutAmount(parkInsertDto.getCutAmount())
                 .saleAmount(parkInsertDto.getSaleAmount())
                 .receiveAmount(parkInsertDto.getReceiveAmount())
                 .recpDt(parkInsertDto.getRecpDt())
-                .recpDt(recpDt)
+                .recpDt(parkInsertDto.getRecpDt())
                 .remark(parkInsertDto.getRemark())
                 .insertUser(insertUserId)
                 .insertIp(ipAddress)
                 .accGubun(parkInsertDto.getAccGubun())
                 .chasu(String.valueOf(dayOfWeekNumber))
+                .gojiState(parkInsertDto.getGojiState())
                 .build();
 
         parkDataMapper.parkDataInsert(parkdataVo);
@@ -90,4 +91,11 @@ public class ParkDataService {
         return parkDataMapper.getParkDataSearchList(parkSearchDto);
     }
 
+    public ParkDataDto getParkDataDetail(String serialNo) {
+        return parkDataMapper.getParkDataDetail(serialNo);
+    }
+
+    public void deleteParkData(String serialNo) {
+        parkDataMapper.deleteParkData(serialNo);
+    }
 }

@@ -7,30 +7,26 @@
     <insert id="parkDataInsert" parameterType="org.park.public_gs.vo.ParkDataVo">
         INSERT INTO parkdata
         (serialNo, spaceNo, carNo, enterType, enterDate, enterUser, discountCode, leaveType,
-         leaveDate, leaveUser, spotCount, userRemark, spotNo, gasan, discAmount, cutAmount,
-         saleAmount, receiveAmount, recpDt, remark, insertUser, insertDate, insertIp, del_Tag, chasu)
+         leaveDate, leaveUser, spotCount, userRemark, spotNo, gasan, discAmount, cutAmount, saleAmount,
+         receiveAmount, recpDt, gojiState, remark, insertUser, insertDate, insertIp, del_Tag, chasu)
         VALUES
         (#{serialNo}, #{spaceNo}, #{carNo}, 3, #{enterDate}, #{enterUser}, #{discountCode}, #{leaveType},
-         #{leaveDate}, #{leaveUser}, #{spotCount}, #{userRemark}, #{spotNo}, #{gasan}, #{discAmount}, #{cutAmount},
-         #{saleAmount}, #{receiveAmount}, #{recpDt}, #{remark}, #{insertUser}, now(), #{insertIp}, 0, #{chasu})
+         #{leaveDate}, #{leaveUser}, #{spotCount}, #{userRemark}, #{spotNo}, #{gasan}, #{discAmount}, #{cutAmount}, #{saleAmount},
+         #{receiveAmount}, #{recpDt}, #{gojiState}, #{remark}, #{insertUser}, now(), #{insertIp}, 0, #{chasu})
     </insert>
 
     <!-- 이용 현황 전체 데이터 조회 -->
     <select id="getParkDataList" resultType="org.park.public_gs.dto.ParkStatusDto">
-        SELECT s.spaceNm, p.EnterDate, p.LeaveDate, p.carNo, p.RecpDt, p.accGubun, p.SaleAmount, p.DiscAmount, p.Gasan
+        SELECT p.serialNo, s.spaceNm, p.enterDate, p.leaveDate, p.carNo, p.recpDt, p.accGubun, p.saleAmount, p.discAmount, p.gasan
         FROM parkdata p
             JOIN space_info s
                 ON p.spaceNo = s.spaceNo
+        WHERE p.del_Tag = '0'
     </select>
 
-    <!--    private String carNo;       // 차량번호
-    private String spaceNm;     // 주차장명
-    private String accGubun;    // 미수구분
-    private Date enterDate;     // 입차날짜
-    private Date outDate;       // 출차날짜-->
     <!-- 이용 현황 검색 -->
     <select id="getParkDataSearchList" parameterType="org.park.public_gs.dto.ParkSearchDto" resultType="org.park.public_gs.dto.ParkStatusDto">
-        SELECT s.spaceNm, p.EnterDate, p.LeaveDate, p.carNo, p.RecpDt, p.accGubun, p.SaleAmount, p.DiscAmount, p.Gasan
+        SELECT s.spaceNm, p.enterDate, p.leaveDate, p.carNo, p.recpDt, p.accGubun, p.saleAmount, p.discAmount, p.gasan
         FROM parkdata p
             JOIN space_info s
                 ON p.spaceNo = s.spaceNo
@@ -60,6 +56,23 @@
         </choose>
         WHERE p.enterDate LIKE '%' || #{enterDate} || '%'
         AND p.leaveDate LIKE '%' || #{outDate} || '%'
+        AND p.del_Tag = '0'
     </select>
+
+    <select id="getParkDataDetail" parameterType="String"  resultType="org.park.public_gs.dto.ParkDataDto">
+        SELECT p.serialNo, s.spaceNm, p.spotNo, p.carNo, p.enterDate, p.enterUser, p.discountCode, p.leaveType, p.leaveDate,
+               p.leaveUser, p.spotCount, p.userRemark, p.gasan, p.discAmount, p.cutAmount, p.saleAmount, p.receiveAmount, p.recpNo,
+               p.recpDt, p.remark, p.accGubun, p.gojiState
+        FROM parkdata p
+                 JOIN space_info s
+                      ON p.spaceNo = s.spaceNo
+        WHERE p.serialNo = #{serialNo}
+            AND p.del_Tag = '0'
+    </select>
+
+    <delete id="deleteParkData" parameterType="String">
+        DELETE FROM parkdata
+        WHERE serialNo = #{serialNo}
+    </delete>
 
 </mapper>

@@ -7,24 +7,24 @@ import lombok.Getter;
 import java.util.Date;
 
 /*
- * 이용현황 신규 저장용 DTO
- * */
+* 이용현황 신규 저장용 DTO
+* */
 @Getter
-public class ParkInsertDto {
+public class ParkDataDto {
 
     private String serialNo;
     private String spaceNm;             // 주차장명
     private Integer spotNo;             // 구획번호
     private String carNo;               // 차량번호
-    private String enterDate;           // 입차 날짜
-    private String enterHour;           // 입차 시간(시)
-    private String enterMinute;         // 입차 시간(분)
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:ss:mm", timezone = "Asia/Seoul")  // 날짜 포맷 변경
+    private Date enterDate;             // 날짜 포맷 입차 날짜
     private String enterUser;           // 입차 요원
     private String discountCode;        // 할인 코드
     private String leaveType;           // 출차 유형
-    private String outDate;             // 출차 날짜
-    private String outHour;             // 출차 시간(시)
-    private String outMinute;           // 출차 시간(분)
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:ss:mm", timezone = "Asia/Seoul")  // 날짜 포맷 변경
+    private Date leaveDate;             // 날짜 포맷 출차 날짜
     private String leaverUser;          // 출차 요원
     private Integer spotCount;          // 구획수 / 사용구획(수)
     private String userRemark;          // 요원 메모
@@ -39,27 +39,22 @@ public class ParkInsertDto {
     private Date recpDt;                // 수납일 결제일
     private String remark;              // 메모
     private String accGubun;            // 결제구분
-    private String gojiState;           // 고지상태(차수)
+    private String gojiState;           // 고지 상태(차수)
 
     @Builder
-    public ParkInsertDto(String serialNo, String spaceNm, Integer spotNo, String carNo, String enterDate, String enterHour,
-                         String enterMinute, String enterUser, String discountCode, String leaveType, String outDate,
-                         String outHour, String outMinute, String leaverUser, Integer spotCount, String userRemark,
-                         Integer gasan, Integer discAmount, Integer cutAmount, Integer saleAmount, Integer receiveAmount,
-                         String recpNo, Date recpDt, String remark, String accGubun, String gojiState) {
+    public ParkDataDto(String serialNo, String spaceNm, Integer spotNo, String carNo, Date enterDate, String enterUser,
+                       String discountCode, String leaveType, Date leaveDate, String leaverUser, Integer spotCount,
+                       String userRemark, Integer gasan, Integer discAmount, Integer cutAmount, Integer saleAmount,
+                       Integer receiveAmount, String recpNo, Date recpDt, String remark, String accGubun, String gojiState) {
         this.serialNo = serialNo;
         this.spaceNm = spaceNm;
         this.spotNo = spotNo;
         this.carNo = carNo;
         this.enterDate = enterDate;
-        this.enterHour = enterHour;
-        this.enterMinute = enterMinute;
         this.enterUser = enterUser;
         this.discountCode = discountCode;
         this.leaveType = leaveType;
-        this.outDate = outDate;
-        this.outHour = outHour;
-        this.outMinute = outMinute;
+        this.leaveDate = leaveDate;
         this.leaverUser = leaverUser;
         this.spotCount = spotCount;
         this.userRemark = userRemark;
