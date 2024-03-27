@@ -44,5 +44,23 @@
         ORDER BY sortNum
     </select>
 
+    <!--  미수 구분 조회  -->
+    <select id="commonCodeMisu" resultType="org.park.public_gs.vo.CommonCodeVo">
+        SELECT code as codeNo, codeName as codeNm
+        FROM code_detail
+        WHERE commonCode = '00008'
+            AND del_Tag='0'
+        ORDER BY sortNum
+    </select>
+
+    <!--  검색 날짜 타입 조회  -->
+    <select id="commonCodeSearchDateType" resultType="org.park.public_gs.vo.CommonCodeVo">
+        SELECT code as codeNo, codeName as codeNm
+        FROM code_detail
+        WHERE commonCode = '00023'
+            AND del_Tag='0'
+        ORDER BY sortNum
+    </select>
+
 
 </mapper>

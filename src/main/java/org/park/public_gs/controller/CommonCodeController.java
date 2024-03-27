@@ -56,4 +56,19 @@ public class CommonCodeController {
     return commonCodeLeaveList;
   }
 
+  // 미수 여부
+  @GetMapping("/common/misu")
+  public List<CommonCodeVo> getCommonCodeMisu() {
+    List<CommonCodeVo> commonCodeMisuList = commonCodeService.getCommonCodeMisu();
+    log.info("common_leaveType : ", commonCodeMisuList);
+    return commonCodeMisuList;
+  }
+
+  // 검색 날짜 타입
+  @GetMapping("/common/date/type")
+  public List<CommonCodeVo> getCommonCodeSearchDateType() {
+    List<CommonCodeVo> commonCodeSearchDateType = commonCodeService.getCommonCodeSearchDateType();
+    log.info("common_leaveType : ", commonCodeSearchDateType);
+    return commonCodeSearchDateType;
+  }
 }

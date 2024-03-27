@@ -24,9 +24,8 @@ public class ParkDataController {
     // 이용 현황 페이지
     @GetMapping("/park/status")
     public String parkStatus(Model model) {
-        List<ParkStatusDto> parkStatusList = parkdataService.getParkdataList();
-        model.addAttribute("parkStatusList", parkStatusList);
-        log.info("parkStatusList", parkStatusList);
+//        List<ParkStatusDto> park = parkdataService.getPark();
+//        model.addAttribute("parkStatusList", park);
         return "park/status";
     }
 
@@ -40,20 +39,36 @@ public class ParkDataController {
 
     // 이용 현황 검색
     @GetMapping("/park/search")
-    public String parkSearch(ParkSearchDto parkSearchDto, Model model) {
-        List<ParkStatusDto> parkStatusList = parkdataService.getParkdataSearchList(parkSearchDto);
-        model.addAttribute("searchList", parkStatusList);
-        log.info("searchList", parkStatusList);
-        return "park/status";
+    @ResponseBody
+    public List<ParkStatusDto> parkSearch(@RequestParam("carNo") String carNo,
+                                          @RequestParam("spaceNo") String spaceNo,
+                                          @RequestParam("dateType") String dateType,
+                                          @RequestParam("enterDate") String enterDate,
+                                          @RequestParam("leaveDate") String leaveDate,
+                                          @RequestParam("proceTag") String proceTag,
+                                          Model model) {
+        ParkSearchDto parkSearchDto = ParkSearchDto.builder()
+                .carNo(carNo)
+                .spaceNo(spaceNo)
+                .dateType(dateType)
+                .enterDate(enterDate)
+                .leaveDate(leaveDate)
+                .proceTag(proceTag)
+                .build();
+        List<ParkStatusDto> parkStatusList = parkdataService.getParkDataSearchList(parkSearchDto);
+        model.addAttribute("parkStatusList", parkStatusList);
+        log.info("parkStatusList", parkStatusList);
+        return parkStatusList;
     }
 
-    // 선택한 목록 현황
+    // 선택한 데이터 상세
     @GetMapping("/park/status/{serialNo}")
     @ResponseBody
     public ParkDataDto parkStatusDetail(@PathVariable("serialNo") String serialNo) {
         return parkdataService.getParkDataDetail(serialNo);
     }
 
+    // 선택한 데이터 삭제
     @DeleteMapping("/park/status/delete/{serialNo}")
     public String parkDataDelete(@PathVariable("serialNo") String serialNo) {
         parkdataService.deleteParkData(serialNo);

@@ -10,55 +10,56 @@
          leaveDate, leaveUser, spotCount, userRemark, spotNo, gasan, discAmount, cutAmount, saleAmount,
          receiveAmount, recpDt, gojiState, remark, insertUser, insertDate, insertIp, del_Tag, chasu)
         VALUES
-        (#{serialNo}, #{spaceNo}, #{carNo}, 3, #{enterDate}, #{enterUser}, #{discountCode}, #{leaveType},
-         #{leaveDate}, #{leaveUser}, #{spotCount}, #{userRemark}, #{spotNo}, #{gasan}, #{discAmount}, #{cutAmount}, #{saleAmount},
-         #{receiveAmount}, #{recpDt}, #{gojiState}, #{remark}, #{insertUser}, now(), #{insertIp}, 0, #{chasu})
+            (#{serialNo}, #{spaceNo}, #{carNo}, 3, #{enterDate}, #{enterUser}, #{discountCode}, #{leaveType},
+             #{leaveDate}, #{leaveUser}, #{spotCount}, #{userRemark}, #{spotNo}, #{gasan}, #{discAmount}, #{cutAmount}, #{saleAmount},
+             #{receiveAmount}, #{recpDt}, #{gojiState}, #{remark}, #{insertUser}, now(), #{insertIp}, 0, #{chasu})
     </insert>
 
-    <!-- 이용 현황 전체 데이터 조회 -->
-    <select id="getParkDataList" resultType="org.park.public_gs.dto.ParkStatusDto">
-        SELECT p.serialNo, s.spaceNm, p.enterDate, p.leaveDate, p.carNo, p.recpDt, p.accGubun, p.saleAmount, p.discAmount, p.gasan
+    <select id="getPark" resultType="org.park.public_gs.dto.ParkStatusDto">
+        SELECT p.serialNo, s.spaceNm, p.enterDate, p.leaveDate, p.carNo, p.recpDt, p.accGubun, p.origAmount, p.saleAmount, p.discAmount, p.gasan
         FROM parkdata p
-            JOIN space_info s
-                ON p.spaceNo = s.spaceNo
-        WHERE p.del_Tag = '0'
+                 JOIN space_info s
+                      ON p.spaceno = s.spaceNo
     </select>
 
     <!-- 이용 현황 검색 -->
     <select id="getParkDataSearchList" parameterType="org.park.public_gs.dto.ParkSearchDto" resultType="org.park.public_gs.dto.ParkStatusDto">
-        SELECT s.spaceNm, p.enterDate, p.leaveDate, p.carNo, p.recpDt, p.accGubun, p.saleAmount, p.discAmount, p.gasan
+        <bind name="carNo" value="_parameter.getCarNo() != null ? '%' + _parameter.getCarNo() + '%' : null"/>
+        <bind name="enterDate" value="_parameter.getEnterDate() != null ? _parameter.getEnterDate() + ' 00:00:00' : null" />
+        <bind name="leaveDate" value="_parameter.getLeaveDate() != null ? _parameter.getLeaveDate() + ' 23:59:59' : null" />
+        <bind name="type" value="_parameter.getDateType() != null ? _parameter.getDateType().toString : null" />
+        SELECT p.serialNo, s.spaceNm, p.enterDate, p.leaveDate, p.carNo, p.recpDt, p.accGubun, p.origAmount, p.saleAmount, p.discAmount, p.gasan
         FROM parkdata p
             JOIN space_info s
-                ON p.spaceNo = s.spaceNo
-        <choose>
-            <when test="carNo != null">
-                p.carNo = #{carNo}
-            </when>
-            <otherwise>
-                p.carNo = null;
-            </otherwise>
-        </choose>
-        <choose>
-            <when test="spaceNm != null">
-                s.spaceNm = #{spaceNm}
-            </when>
-            <otherwise>
-                s.spacenm = null;
-            </otherwise>
-        </choose>
-        <choose>
-            <when test="accGubun != null">
-                s.accGubun = #{accGubun}
-            </when>
-            <otherwise>
-                s.accGubun = null;
-            </otherwise>
-        </choose>
-        WHERE p.enterDate LIKE '%' || #{enterDate} || '%'
-        AND p.leaveDate LIKE '%' || #{outDate} || '%'
-        AND p.del_Tag = '0'
+                ON p.spaceno = s.spaceNo
+        <where>
+                <if test="proceTag != null">
+                    p.proceTag = #{proceTag}
+                </if>
+                <if test="carNo != null">
+                    AND p.carNo LIKE #{carNo}
+                </if>
+                <if test="spaceNo != null and spaceNo != ''">
+                    AND p.spaceNo = #{spaceNo}
+                </if>
+                <choose>
+                    <when test='type != null and type == "E"'>
+                        AND p.enterDate BETWEEN #{enterDate} AND #{leaveDate}
+                    </when>
+                    <when test='type != null and type == "L"'>
+                        AND p.leaveDate BETWEEN #{enterDate} AND #{leaveDate}
+                    </when>
+                    <when test='type != null and type == "R"'>
+                        AND p.recpDt BETWEEN #{enterDate} AND #{leaveDate}
+                    </when>
+                </choose>
+
+                AND p.del_Tag = '0'
+        </where>
+
     </select>
 
+    <!-- 이용 현황 선택 조회 -->
     <select id="getParkDataDetail" parameterType="String"  resultType="org.park.public_gs.dto.ParkDataDto">
         SELECT p.serialNo, s.spaceNm, p.spotNo, p.carNo, p.enterDate, p.enterUser, p.discountCode, p.leaveType, p.leaveDate,
                p.leaveUser, p.spotCount, p.userRemark, p.gasan, p.discAmount, p.cutAmount, p.saleAmount, p.receiveAmount, p.recpNo,

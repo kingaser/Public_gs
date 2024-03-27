@@ -18,4 +18,7 @@ public interface CommonCodeMapper {
 
     List<CommonCodeVo> commonCodeLeave();
 
+    List<CommonCodeVo> commonCodeMisu();
+
+    List<CommonCodeVo> commonCodeSearchDateType();
 }

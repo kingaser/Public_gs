@@ -4,7 +4,7 @@ function Date_Comma(cellValue) {
     }else{
         var yyyy = cellValue.substring(0,4);
         var mm = cellValue.substring(4,6);
-        var dd = cellValue.substring(6,8);;
+        var dd = cellValue.substring(6,8);
         return yyyy+'.'+mm+'.'+dd;
     }
 
@@ -234,16 +234,4 @@ function getSelectCommonCode(SELECT_ID, URL, SELECT_OPTION){
         });
         $("#"+SELECT_ID).html(option);
    }
-}
-
-function getCommonCode(SELECT_ID, URL, SELECT_OPTION){
-    var url = URL;
-    var param = {}
-    var resultJson = fnAjaxJson(url,param);
-    var option = "";
-    if ($(resultJson).length > 0) {
-        for (let i = 0; i < resultJson.length; i++) {
-            option += $("<option" + resultJson[0] + ">" + resultJson[1] + "</option>");
-        }
-    }
 }

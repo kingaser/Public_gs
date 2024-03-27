@@ -16,13 +16,14 @@ public class ParkStatusDto {
     private String carNo;           // 차량번호
     private String recpDt;          // 영수번호
     private String accGubun;        // 결제구분
+    private Integer origAmount;     // 원금액
     private Integer saleAmount;     // 이용금액
     private Integer discAmount;     // 할인금액(후할인)
     private Integer gasan;          // 가산금액
 
     @Builder
     public ParkStatusDto(String serialNo, String spaceNm, String enterDate, String leaveDate, String carNo,
-                         String recpDt, String accGubun, Integer saleAmount, Integer discAmount, Integer gasan) {
+                         String recpDt, String accGubun, Integer origAmount, Integer saleAmount, Integer discAmount, Integer gasan) {
         this.serialNo = serialNo;
         this.spaceNm = spaceNm;
         this.enterDate = enterDate;
@@ -30,6 +31,7 @@ public class ParkStatusDto {
         this.carNo = carNo;
         this.recpDt = recpDt;
         this.accGubun = accGubun;
+        this.origAmount = origAmount;
         this.saleAmount = saleAmount;
         this.discAmount = discAmount;
         this.gasan = gasan;

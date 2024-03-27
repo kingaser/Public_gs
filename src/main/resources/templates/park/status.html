@@ -61,32 +61,29 @@
                             <div class="bs-group w100p hug">
                                 <div class="con">
                                     <p class="tit">차량번호</p>
-                                    <input type="text" class="w100p" name="carNo">
+                                    <input type="text" class="w100p" name="carNo" id="searchCarNo">
                                 </div>
                                 <div class="con">
                                     <p class="tit">기간</p>
-                                    <div><input type="text" class="w100p datepicker" name="enterDate"
-                                                value="2024.01.01"></div>
-                                    <div><input type="text" class="w100p datepicker" name="outDate"
-                                                value="2024.01.01"></div>
+                                    <select class="w50p" name="dateType" id="dateType">
+                                    </select>
+                                    <div><input type="text" class="w100p datepicker searchDate" name="enterDate"
+                                                id="searchEnterDate"></div>
+                                    <div><input type="text" class="w100p datepicker searchDate" name="leaveDate" id="searchLeaveDate">
+                                    </div>
                                 </div>
                                 <div class="con">
                                     <p class="tit">주차장명</p>
-                                    <select class="w100p" name="spaceNm">
-                                        <option>전체</option>
+                                    <select class="w100p" name="spaceNo" id="searchSpaceNo">
                                     </select>
                                 </div>
                                 <div class="con">
                                     <p class="tit">미수여부</p>
-                                    <select class="w100p" name="accGubun">
-                                        <option value="1">완납</option>
-                                        <option value="0">미납</option>
-                                        <option value="9">미납취소(서손처리)</option>
+                                    <select class="w100p" name="proceTag" id="searchProceTag">
                                     </select>
                                 </div>
-
                             </div>
-                            <button type="submit" class="btn btn-black w100">검색</button>
+                            <button type="button" class="btn btn-black w100" th:onclick="searchStatus()">검색</button>
                         </div>
                     </div>
                     <div class="con-group w100p">
@@ -102,26 +99,14 @@
                                         <th>차량번호</th>
                                         <th>수납일</th>
                                         <th>결제구분</th>
+                                        <th>원금액</th>
                                         <th>이용금액</th>
                                         <th>할인금액</th>
                                         <th>가산금</th>
                                         <th>결제금액</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr th:if="${#lists.size(parkStatusList)} > 0"
-                                        th:each="parkStatusList : ${parkStatusList}"
-                                        th:onclick="getStatusDetail([[${parkStatusList.serialNo}]])">
-                                        <td th:text="${parkStatusList.spaceNm}"></td>
-                                        <td th:text="${parkStatusList.enterDate}" ></td>
-                                        <td th:text="${parkStatusList.leaveDate}"></td>
-                                        <td th:text="${parkStatusList.carNo}"></td>
-                                        <td th:text="${parkStatusList.recpDt}"></td>
-                                        <td th:text="${parkStatusList.accGubun}"></td>
-                                        <td th:text="${parkStatusList.saleAmount}"></td>
-                                        <td th:text="${parkStatusList.discAmount}"></td>
-                                        <td th:text="${parkStatusList.gasan}"></td>
-                                    </tr>
+                                    <tbody class="table_body">
                                     </tbody>
                                 </table>
                             </div>
@@ -146,13 +131,14 @@
                                         </td>
                                         <th>입차시간</th>
                                         <td>
-                                            <div style="display: flex; justify-content: center">
-                                                <input type="text" class="w50 datepicker" name="enterHour" id="enterHour" value="09">시
-                                                <input type="text" class="w50 datepicker" name="enterMinute" id="enterMinute" value="00">분
-                                            </div>
+                                            <input type="text" class="w50p datepicker" name="enterHour" id="enterHour"
+                                                   value="09">
+                                            <input type="text" class="w50p datepicker" name="enterMinute"
+                                                   id="enterMinute" value="00">
                                         </td>
                                         <th>입차요원</th>
-                                        <td><input type="text" class="w100p" name="enterUser" id="enterUser" value=""></td>
+                                        <td><input type="text" class="w100p" name="enterUser" id="enterUser" value="">
+                                        </td>
                                         <th>주차장명</th>
                                         <td><input type="text" class="w100p" name="spaceNm" id="spaceNm" value=""></td>
                                     </tr>
@@ -160,7 +146,8 @@
                                         <th>차량번호</th>
                                         <td><input type="text" class="w100p" name="carNo" id="carNo" value=""></td>
                                         <th>사용구획</th>
-                                        <td><input type="text" class="w100p" name="spotCount" id="spotCount" value="1"></td>
+                                        <td><input type="text" class="w100p" name="spotCount" id="spotCount" value="1">
+                                        </td>
                                         <th>구획번호</th>
                                         <td><input type="text" class="w100p" name="spotNo" id="spotNo" value="1"></td>
                                         <th>할인유형</th>
@@ -172,20 +159,21 @@
                                     <tr>
                                         <th>출차일자</th>
                                         <td>
-                                            <input type="text" class="w100p datepicker" name="outDate" id="outDate" value="">
+                                            <input type="text" class="w100p datepicker" name="outDate" id="outDate"
+                                                   value="">
                                         </td>
                                         <th>출차시간</th>
                                         <td>
-                                            <div style="display: flex; justify-content: center">
-                                                <input type="text" class="w50p datepicker" name="outHour" id="outHour" value="">시
-                                                <input type="text" class="w50p datepicker" name="outMinute" id="outMinute" value="">분
-                                            </div>
+                                            <input type="text" class="w50p datepicker" name="outHour" id="outHour"
+                                                   value="">
+                                            <input type="text" class="w50p datepicker" name="outMinute" id="outMinute"
+                                                   value="">
                                         </td>
                                         <th>출차요원</th>
                                         <td><input type="text" class="w100p" name="leaverUser" id="leaverUser"></td>
                                         <th>출차유형</th>
                                         <td>
-                                            <select id="leaveType" name="leaveType" ></select>
+                                            <select id="leaveType" name="leaveType"></select>
                                         </td>
                                     </tr>
                                     <tr>
@@ -195,22 +183,24 @@
                                         <td><input type="text" class="w100p" name="gasan" id="gasan"></td>
                                         <th>절사요금</th>
                                         <td><input type="text" class="w100p" name="cutAmount" id="cutAmount"></td>
-                                        <th>이용금액</th>
-                                        <td><input type="text" class="w100p" name="saleAmount" id="saleAmount"></td>
+                                        <th>원금액</th>
+                                        <td><input type="text" class="w100p" name="origAmount" id="origAmount"></td>
                                     </tr>
                                     <tr>
                                         <th></th>
                                         <td></td>
                                         <th>할인금액</th>
                                         <td><input type="text" class="w100p" name="discAmount" id="discAmount"></td>
-                                        <th>청구금액</th>
-                                        <td><input type="text" class="w100p" name=""></td>
+                                        <th>이용금액</th>
+                                        <td><input type="text" class="w100p" name="saleAmount" id="saleAmount"></td>
                                         <th>결제금액</th>
-                                        <td><input type="text" class="w100p" name="receiveAmount" id="receiveAmount"></td>
+                                        <td><input type="text" class="w100p" name="receiveAmount" id="receiveAmount">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>요원메모</th>
-                                        <td colspan="3"><input type="text" class="w100p" name="userRemark" id="userRemark"></td>
+                                        <td colspan="3"><input type="text" class="w100p" name="userRemark"
+                                                               id="userRemark"></td>
                                         <th>관리자메모</th>
                                         <td colspan="3"><input type="text" class="w100p" name="remark" id="remark"></td>
                                     </tr>
@@ -276,11 +266,13 @@
     </div>
 </div>
 <!--// wrap -->
-<script src="/js/jquery-3.7.1.min.js"></script>
-<script type="text/javascript" src="/js/ajax.js"></script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
 <!--<script src="/js/jquery-ui.min.js"></script>-->
 <script src="/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/js/common_code.js"></script>
+<script src="/js/status.js"></script>
+<script type="text/javascript" src="/js/ajax.js"></script>
 <script>
     $(function () {
 
@@ -316,51 +308,29 @@
     });
 
     $(function () {
-        getSelectCommonCode("accGubun","/common/accInfoList","misu");
-        getSelectCommonCode("leaveType","/common/leave","leave");
-        getSelectCommonCode("discountCode","/common/discInfoList","leave");
-        getStatusDetail("serialNo")
+        getSelectCommonCode("accGubun", "/common/accInfoList", "misu");
+        getSelectCommonCode("leaveType", "/common/leave", "leave");
+        getSelectCommonCode("discountCode", "/common/discInfoList", "leave");
+        getSelectCommonCode("searchSpaceNo", "/common/spaceInfoList", "all");
+        getSelectCommonCode("searchProceTag", "/common/misu", "");
+        getSelectCommonCode("dateType", "/common/date/type", "");
     });
 
-    function getStatusDetail(serialNo) {
-        let serial = serialNo;
+    // 검색 날짜 초기값 오늘 날짜
+    // 현재 날짜 가져오기
+    let today = new Date();
 
-        $.ajax({
-            type: "GET",
-            url: `/park/status/`+ serial,
-            contentType: "application/json",
-            success: function (result) {
-                console.log(result);
-                $("#enterDate").val(result.enterDate.substring(0, 10));
-                $("#enterHour").val(result.enterDate.substring(11, 13));
-                $("#enterMinute").val(result.enterDate.substring(14, 16));
-                $("#enterUser").val(result.enterUser);
-                $("#spaceNm").val(result.spaceNm);
-                $("#carNo").val(result.carNo);
-                $("#spotCount").val(result.spotCount);
-                $("#spotNo").val(result.spotNo);
-                $("#discountCode").val(result.discountCode);
-                $("#outDate").val(result.leaveDate.substring(0, 10));
-                $("#outHour").val(result.leaveDate.substring(11, 13));
-                $("#outMinute").val(result.leaveDate.substring(14, 16));
-                $("#leaverUser").val(result.leaverUser);
-                $("#recpNo").val(result.recpNo);
-                $("#gasan").val(result.gasan);
-                $("#cutAmount").val(result.cutAmount);
-                $("#saleAmount").val(result.saleAmount);
-                $("#discAmount").val(result.discAmount);
-                $("#receiveAmount").val(result.receiveAmount);
-                $("#userRemark").val(result.userRemark);
-                $("#remark").val(result.remark);
-                $("#accGubun").val(result.accGubun);
-                $("#recpDt").val(result.recpDt);
-                $("#gojiState").val(result.gojiState);
-            },
-            error: function (err) {
-                console.log('에러뜸');
-            }
-        })
-    }
+    // 년-월-일 형식으로 변경
+    let year = today.getFullYear();
+    let month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더해줍니다.
+    let day = String(today.getDate()).padStart(2, '0');
+
+    // 초기값으로 설정
+    let dateInputs = document.querySelectorAll('.searchDate');
+    dateInputs.forEach(function (input) {
+        input.value = year + "-" + month + "-" + day;
+    });
+
 </script>
 </body>
 </html>

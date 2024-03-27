@@ -39,4 +39,12 @@ public class CommonCodeService {
     public List<CommonCodeVo> getCommonCodeLeave() {
         return commonCodeMapper.commonCodeLeave();
     }
+
+    public List<CommonCodeVo> getCommonCodeMisu() {
+        return commonCodeMapper.commonCodeMisu();
+    }
+
+    public List<CommonCodeVo> getCommonCodeSearchDateType() {
+        return commonCodeMapper.commonCodeSearchDateType();
+    }
 }

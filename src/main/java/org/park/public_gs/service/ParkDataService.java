@@ -27,9 +27,8 @@ public class ParkDataService {
     private final SpaceMapper spaceMapper;
     private final UserMapper userMapper;
 
-    // 이용 현황 전체 조회
-    public List<ParkStatusDto> getParkdataList() {
-        return parkDataMapper.getParkDataList();
+    public List<ParkStatusDto> getPark() {
+        return parkDataMapper.getPark();
     }
 
     // 입차 정보
@@ -87,7 +86,7 @@ public class ParkDataService {
     }
 
     // 이용 현황 검색
-    public List<ParkStatusDto> getParkdataSearchList(ParkSearchDto parkSearchDto) {
+    public List<ParkStatusDto> getParkDataSearchList(ParkSearchDto parkSearchDto) {
         return parkDataMapper.getParkDataSearchList(parkSearchDto);
     }
 
