@@ -10,7 +10,6 @@ import java.util.List;
 
 @Mapper
 public interface ParkDataMapper {
-    List<ParkStatusDto> getPark();
 
     void parkDataInsert(ParkDataVo parkdataVo);
 

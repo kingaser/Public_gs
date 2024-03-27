@@ -15,13 +15,6 @@
              #{receiveAmount}, #{recpDt}, #{gojiState}, #{remark}, #{insertUser}, now(), #{insertIp}, 0, #{chasu})
     </insert>
 
-    <select id="getPark" resultType="org.park.public_gs.dto.ParkStatusDto">
-        SELECT p.serialNo, s.spaceNm, p.enterDate, p.leaveDate, p.carNo, p.recpDt, p.accGubun, p.origAmount, p.saleAmount, p.discAmount, p.gasan
-        FROM parkdata p
-                 JOIN space_info s
-                      ON p.spaceno = s.spaceNo
-    </select>
-
     <!-- 이용 현황 검색 -->
     <select id="getParkDataSearchList" parameterType="org.park.public_gs.dto.ParkSearchDto" resultType="org.park.public_gs.dto.ParkStatusDto">
         <bind name="carNo" value="_parameter.getCarNo() != null ? '%' + _parameter.getCarNo() + '%' : null"/>

@@ -23,9 +23,7 @@ public class ParkDataController {
 
     // 이용 현황 페이지
     @GetMapping("/park/status")
-    public String parkStatus(Model model) {
-//        List<ParkStatusDto> park = parkdataService.getPark();
-//        model.addAttribute("parkStatusList", park);
+    public String parkStatus() {
         return "park/status";
     }
 

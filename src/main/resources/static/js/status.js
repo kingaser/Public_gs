@@ -1,6 +1,6 @@
 let updateSerialNo;
 
-function getStatusDetail(serialNo) {
+const getStatusDetail = ((serialNo) => {
     console.log('선택 호출')
     let serial = serialNo;
     console.log('serial ' + serial);
@@ -42,10 +42,10 @@ function getStatusDetail(serialNo) {
             console.log(err);
         }
     })
-}
+})
 
 const searchStatus = () => {
-$('.table_body').empty();
+    $('.table_body').empty();
     $.ajax({
         type: 'get',
         url: '/park/search',
@@ -64,7 +64,7 @@ $('.table_body').empty();
                 $.each(res[i], function (j) {
                     res[i][j] = res[i][j] != null ? res[i][j] : '';
                 })
-                str += '<tr onclick="getStatusDetail(' + res[i].serialNo + ')">' +
+                str += '<tr onclick="getStatusDetail(' + '\'' + res[i].serialNo + '\'' + ')">' +
                         '<td>' + res[i].spaceNm + '</td>'+
                         '<td>' + res[i].enterDate + '</td>'+
                         '<td>' + res[i].leaveDate + '</td>'+

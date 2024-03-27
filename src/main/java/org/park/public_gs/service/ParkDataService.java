@@ -27,10 +27,6 @@ public class ParkDataService {
     private final SpaceMapper spaceMapper;
     private final UserMapper userMapper;
 
-    public List<ParkStatusDto> getPark() {
-        return parkDataMapper.getPark();
-    }
-
     // 입차 정보
     public void parkInsert(HttpSession session, ParkInsertDto parkInsertDto, String ipAddress) {
         String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
