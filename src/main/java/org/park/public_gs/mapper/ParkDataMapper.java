@@ -7,6 +7,7 @@ import org.park.public_gs.dto.ParkStatusDto;
 import org.park.public_gs.vo.ParkDataVo;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ParkDataMapper {
@@ -17,7 +18,7 @@ public interface ParkDataMapper {
 
     ParkDataDto getParkDataDetail(String serialNo);
 
-    void deleteParkData(String serialNo);
+    void deleteParkData(Map<String, String> map);
 
     void updateParkData(ParkDataVo parkDataVo);
 

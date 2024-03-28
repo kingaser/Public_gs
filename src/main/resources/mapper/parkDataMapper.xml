@@ -98,17 +98,20 @@
                 <if test="remark != null">remark = #{remark},</if>
 <!--                <if test="accGubun != null">accGubun = #{accGubun},</if>-->
                 <if test="gojiState != null">gojiState = #{gojiState},</if>
-                <if test="updateUser != null">updateUser = #{updateUser},</if>
-                <if test="updateDate != null">updateDate = now(),</if>
-                <if test="updateIp != null">updateIP = #{updateIp},</if>
+                updateUser = #{updateUser},
+                updateDate = now(),
+                updateIP = #{updateIp}
             </set>
         WHERE serialNo = #{serialNo}
     </update>
 
-    <update id="deleteParkData" parameterType="String" >
+    <update id="deleteParkData" parameterType="hashMap" >
         UPDATE parkdata
         <set>
-            del_Tag = 9
+            del_Tag = 9,
+            updateUser = #{userId},
+            updateDte = now(),
+            updateIP = #{ipAddress}
         </set>
         WHERE serialNo = #{serialNo}
     </update>

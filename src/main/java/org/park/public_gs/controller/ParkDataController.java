@@ -29,8 +29,7 @@ public class ParkDataController {
     // 입차 정보
     @PostMapping("/park/insert")
     public String parkInsert(HttpServletRequest request, ParkInsertDto parkInsertDto) {
-        String ipAddress = request.getRemoteAddr();
-        parkdataService.parkInsert(request.getSession(), parkInsertDto, ipAddress);
+        parkdataService.parkInsert(request, parkInsertDto);
         return "redirect:/park/status";
     }
 
@@ -69,17 +68,23 @@ public class ParkDataController {
     public ParkInsertDto parkDataUpdate(@PathVariable("serialNo") String serialNo,
                                         @RequestBody ParkInsertDto parkInsertDto,
                                         HttpServletRequest request) {
-        String ipAddress = request.getRemoteAddr();
-        parkdataService.updateParkData(serialNo, parkInsertDto, request.getSession(), ipAddress);
+        parkdataService.updateParkData(serialNo, parkInsertDto, request);
         return parkInsertDto;
     }
 
     // 선택한 데이터 삭제
     @DeleteMapping("/park/status/{serialNo}")
     @ResponseBody
-    public void parkDataDelete(@PathVariable("serialNo") String serialNo) {
-        parkdataService.deleteParkData(serialNo);
+        public void parkDataDelete(HttpServletRequest request,
+                                   @PathVariable("serialNo") String serialNo) {
+        parkdataService.deleteParkData(request, serialNo);
     }
 
-
+    // 결제
+    @PatchMapping("/park/pay")
+    @ResponseBody
+    public void parkPay(@RequestBody ParkInsertDto parkInsertDto,
+                        HttpServletRequest request) {
+        parkdataService.updateParkPay(request, parkInsertDto);
+    }
 }

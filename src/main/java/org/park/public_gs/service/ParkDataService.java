@@ -1,5 +1,6 @@
 package org.park.public_gs.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,9 @@ import org.park.public_gs.vo.UserInfoVo;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -28,13 +31,13 @@ public class ParkDataService {
     private final UserMapper userMapper;
 
     // 입차 정보
-    public void parkInsert(HttpSession session, ParkInsertDto parkInsertDto, String ipAddress) {
+    public void parkInsert(HttpServletRequest request, ParkInsertDto parkInsertDto) {
         // 입차날짜 출차날짜 HTML 에 날짜와 시간으로 분리되어 있어서 합쳐주는 작업
         String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
         String leaveDate = parkInsertDto.getOutDate() != "" ?
                 parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : null;
 
-        String insertUserId = String.valueOf(session.getAttribute("loginId"));
+        Map<String, String> userAndIp = userAndIp(request);
 
         Calendar calendar = Calendar.getInstance();
         int dayOfWeekNumber = calendar.get(Calendar.DAY_OF_WEEK);
@@ -70,8 +73,8 @@ public class ParkDataService {
                 .receiveAmount(parkInsertDto.getReceiveAmount())
                 .recpDt(parkInsertDto.getRecpDt() != "" ? parkInsertDto.getRecpDt() : null)
                 .remark(parkInsertDto.getRemark())
-                .insertUser(insertUserId)
-                .insertIp(ipAddress)
+                .insertUser(userAndIp.get("userId"))
+                .insertIp(userAndIp.get("ipAddress"))
                 .accGubun(parkInsertDto.getAccGubun())
                 .chasu(String.valueOf(dayOfWeekNumber))
                 .gojiState(parkInsertDto.getGojiState())
@@ -92,15 +95,15 @@ public class ParkDataService {
     }
 
     // 이용 현황 선택 수정
-    public void updateParkData(String serialNo, ParkInsertDto parkInsertDto, HttpSession session, String ipAddress) {
+    public void updateParkData(String serialNo, ParkInsertDto parkInsertDto, HttpServletRequest request) {
         String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
         String leaveDate = parkInsertDto.getOutDate() != "" ?
                 parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : null;
 
-        String updateUsername = String.valueOf(session.getAttribute("loginNm"));
+        Map<String, String> userAndIp = userAndIp(request);
+
         // user 정보 요원 이름으로 검색
         UserInfoVo leaveUserInfo = userMapper.findByUserName(parkInsertDto.getLeaverUser());
-        UserInfoVo updateUserInfo = userMapper.findByUserName(updateUsername);
 
         // 주차장 정보 주차장 명으로 검색
         SpaceInfoVo spaceInfo = spaceMapper.getSpaceInfo(parkInsertDto.getSpaceNm());
@@ -127,8 +130,8 @@ public class ParkDataService {
                 .remark(parkInsertDto.getRemark())
                 .accGubun(parkInsertDto.getAccGubun())
                 .gojiState(parkInsertDto.getGojiState())
-                .updateUser(updateUserInfo.getUserId())
-                .updateIp(ipAddress)
+                .updateUser(userAndIp.get("userId"))
+                .updateIp(userAndIp.get("ipAddress"))
                 .build();
 
         parkDataMapper.updateParkData(parkdataVo);
@@ -136,8 +139,27 @@ public class ParkDataService {
     }
 
     // 이용 현황 선택 삭제
-    public void deleteParkData(String serialNo) {
-        parkDataMapper.deleteParkData(serialNo);
+    public void deleteParkData(HttpServletRequest request, String serialNo) {
+        Map<String, String> userAndId = userAndIp(request);
+        userAndId.put("serialNo", serialNo);
+        parkDataMapper.deleteParkData(userAndId);
         parkDataHistoryMapper.parkDataHistoryInsert(parkDataMapper.getParkData(serialNo));
+    }
+
+    // 결제
+    public void updateParkPay(HttpServletRequest request, ParkInsertDto parkInsertDto) {
+
+    }
+
+    // IP 주소, 로그인한 userId 추출 메서드
+    private Map<String, String> userAndIp(HttpServletRequest request) {
+        String userId = String.valueOf(request.getSession().getAttribute("loginId"));
+        String ipAddress = request.getRemoteAddr();
+
+        Map<String, String> userAndIp = new HashMap<>();
+        userAndIp.put("userId", userId);
+        userAndIp.put("ipAddress", ipAddress);
+
+        return userAndIp;
     }
 }
