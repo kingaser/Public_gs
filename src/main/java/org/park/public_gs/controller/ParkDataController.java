@@ -80,4 +80,6 @@ public class ParkDataController {
     public void parkDataDelete(@PathVariable("serialNo") String serialNo) {
         parkdataService.deleteParkData(serialNo);
     }
+
+
 }

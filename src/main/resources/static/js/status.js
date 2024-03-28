@@ -1,3 +1,6 @@
+let proceTag = '0';
+$('#cancelBtn').hide();
+
 const getStatusDetail = ((serialNo) => {
     let serial = serialNo;
 
@@ -36,11 +39,21 @@ const getStatusDetail = ((serialNo) => {
             $('#recpDt').val(result.recpDt);
             $('#gojiState').val(result.gojiState);
             $('#origAmount').val(result.origAmount);
+            proceTag = result.proceTag;
+            console.log('proceTag = ', proceTag)
+            if (proceTag === '0' || proceTag === '9') {
+                $('#cancelBtn').hide();
+                $('#payBtn').show();
+            } else if (proceTag === '1') {
+                $('#payBtn').hide();
+                $('#cancelBtn').show();
+            }
         },
         error: function (err) {
             console.log(err);
         }
     })
+
 })
 
 const searchStatus = () => {

@@ -247,7 +247,8 @@
                                     <button type="button" class="btn btn-white">요금자동계산</button>
                                     <button type="submit" class="btn btn-mint">신규</button>
                                     <button type="button" class="btn btn-red" th:onclick="updateStatus()">저장</button>
-                                    <button type="button" class="btn btn-gray">결제</button>
+                                    <button type="button" class="btn btn-gray" id="payBtn">결제</button>
+                                    <button type="button" class="btn btn-gray" id="cancelBtn">결제취소</button>
                                     <button type="button" class="btn btn-black" th:onclick="deleteStatus()">삭제</button>
                                 </div>
 
@@ -329,6 +330,8 @@
     dateInputs.forEach(function (input) {
         input.value = year + "-" + month + "-" + day;
     });
+
+
 
 </script>
 </body>

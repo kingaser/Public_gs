@@ -40,12 +40,13 @@ public class ParkDataDto {
     private String remark;              // 메모
     private String accGubun;            // 결제구분
     private String gojiState;           // 고지 상태(차수)
+    private String proceTag;
 
     @Builder
     public ParkDataDto(String serialNo, String spaceNm, Integer spotNo, String carNo, Date enterDate, String enterUser,
-                       String discountCode, String leaveType, Date leaveDate, String leaverUser, Integer spotCount,
-                       String userRemark, Integer gasan, Integer discAmount, Integer cutAmount, Integer saleAmount,
-                       Integer receiveAmount, String recpNo, Date recpDt, String remark, String accGubun, String gojiState) {
+                       String discountCode, String leaveType, Date leaveDate, String leaverUser, Integer spotCount, String userRemark,
+                       Integer gasan, Integer discAmount, Integer cutAmount, Integer saleAmount, Integer receiveAmount, String recpNo,
+                       Date recpDt, String remark, String accGubun, String gojiState, String proceTag) {
         this.serialNo = serialNo;
         this.spaceNm = spaceNm;
         this.spotNo = spotNo;
@@ -68,5 +69,6 @@ public class ParkDataDto {
         this.remark = remark;
         this.accGubun = accGubun;
         this.gojiState = gojiState;
+        this.proceTag = proceTag;
     }
 }
