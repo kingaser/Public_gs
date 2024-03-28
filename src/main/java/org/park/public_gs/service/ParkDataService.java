@@ -29,6 +29,7 @@ public class ParkDataService {
 
     // 입차 정보
     public void parkInsert(HttpSession session, ParkInsertDto parkInsertDto, String ipAddress) {
+        // 입차날짜 출차날짜 HTML 에 날짜와 시간으로 분리되어 있어서 합쳐주는 작업
         String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
         String leaveDate = parkInsertDto.getOutDate() != "" ?
                 parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : null;
@@ -38,7 +39,7 @@ public class ParkDataService {
         Calendar calendar = Calendar.getInstance();
         int dayOfWeekNumber = calendar.get(Calendar.DAY_OF_WEEK);
 
-        // user 정보 입차 요원 이름으로 검색
+        // user 정보 요원 이름으로 검색
         UserInfoVo enterUserInfo = userMapper.findByUserName(parkInsertDto.getEnterUser());
         UserInfoVo leaveUserInfo = userMapper.findByUserName(parkInsertDto.getLeaverUser());
 
@@ -58,7 +59,7 @@ public class ParkDataService {
                 .discountCode(parkInsertDto.getDiscountCode())
                 .leaveType(parkInsertDto.getLeaveType())
                 .leaveDate(leaveDate)
-                .leaveUser(leaveUserInfo != null ? leaveUserInfo.getUserId() : "")
+                .leaveUser(leaveUserInfo != null ? leaveUserInfo.getUserId() : null)
                 .spotCount(parkInsertDto.getSpotCount())
                 .userRemark(parkInsertDto.getUserRemark())
                 .spotNo(parkInsertDto.getSpotNo())
@@ -85,20 +86,18 @@ public class ParkDataService {
         return parkDataMapper.getParkDataSearchList(parkSearchDto);
     }
 
+    // 이용 현황 선택 조회
     public ParkDataDto getParkDataDetail(String serialNo) {
         return parkDataMapper.getParkDataDetail(serialNo);
     }
 
-    public void deleteParkData(String serialNo) {
-        parkDataMapper.deleteParkData(serialNo);
-    }
-
+    // 이용 현황 선택 수정
     public void updateParkData(String serialNo, ParkInsertDto parkInsertDto) {
         String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
         String leaveDate = parkInsertDto.getOutDate() != "" ?
                 parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : null;
 
-        // user 정보 입차 요원 이름으로 검색
+        // user 정보 요원 이름으로 검색
         UserInfoVo leaveUserInfo = userMapper.findByUserName(parkInsertDto.getLeaverUser());
 
         // 주차장 정보 주차장 명으로 검색
@@ -130,5 +129,10 @@ public class ParkDataService {
 
         parkDataMapper.updateParkData(parkdataVo);
         parkDataHistoryMapper.parkDataHistoryInsert(parkdataVo);
+    }
+
+    // 이용 현황 선택 삭제
+    public void deleteParkData(String serialNo) {
+        parkDataMapper.deleteParkData(serialNo);
     }
 }

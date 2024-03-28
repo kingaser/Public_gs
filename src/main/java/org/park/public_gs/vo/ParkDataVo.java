@@ -36,7 +36,7 @@ public class ParkDataVo {
     private String proceTag;                // 상태
     private String remark;                  // 관리자메모
     private String recpUser;                // 수납요원
-    private String recpDt;                    // 수납일(결제일)
+    private String recpDt;                  // 수납일(결제일)
     private Integer repSpaceNo;             // 수납주차장
     private String accGubun;                // 결제구분
     private String gojiState;               // 고지차수

@@ -12,7 +12,7 @@
         VALUES
             (#{serialNo}, #{spaceNo}, #{carNo}, 3, #{enterDate}, #{enterUser}, #{discountCode}, #{leaveType}, #{leaveDate},
              #{leaveUser}, #{spotCount}, #{userRemark}, #{spotNo}, #{gasan}, #{discAmount}, #{cutAmount}, #{saleAmount}, #{receiveAmount},
-             #{recpDt}, #{gojiState}, #{remark}, #{insertUser}, now(), #{insertIp}, 0, #{chasu}, 0)
+             #{recpDt}, '0', #{remark}, #{insertUser}, now(), #{insertIp}, 0, #{chasu}, 0)
     </insert>
    <!-- <resultMap id="parkStatusResultMap" type="org.park.public_gs.dto.ParkStatusDto">
         <result property="accName" column="accName" jdbcType="VARCHAR"/>
@@ -27,21 +27,21 @@
         <bind name="type" value="_parameter.getDateType() != null ? _parameter.getDateType().toString : null" />
         SELECT p.serialNo, s.spaceNm, p.enterDate, p.leaveDate, p.carNo, p.recpDt,
                 CASE WHEN (p.proceTag = '0') THEN '미납'
-                    WHEN (p.proceTag = '1' AND p.accGubun = '1') THEN '현금'
-                    WHEN (p.proceTag = '1' AND p.accGubun = '2') THEN '카드'
-                    WHEN (p.proceTag = '1' AND p.accGubun = '3') THEN '무통장'
-                    WHEN (p.proceTag = '1' AND p.accGubun = '4') THEN '고지서'
-                    WHEN (p.proceTag = '1' AND p.accGubun = '6') THEN '가상계좌'
+                    WHEN (p.proceTag = '1' AND p.accGubun = '01') THEN '현금'
+                    WHEN (p.proceTag = '1' AND p.accGubun = '02') THEN '카드'
+                    WHEN (p.proceTag = '1' AND p.accGubun = '03') THEN '무통장'
+                    WHEN (p.proceTag = '1' AND p.accGubun = '04') THEN '고지서'
+                    WHEN (p.proceTag = '1' AND p.accGubun = '06') THEN '가상계좌'
                 END AS accName,
             p.accGubun, p.origAmount, p.saleAmount, p.discAmount, p.gasan, p.receiveAmount
         FROM parkdata p
             INNER JOIN space_info s
                 ON p.spaceNo = s.spaceNo
         <where>
-                <if test="proceTag != null">
+                <if test="proceTag != null and proceTag != ''">
                     p.proceTag = #{proceTag}
                 </if>
-                <if test="carNo != null">
+                <if test="carNo != null and carNo != ''">
                     AND p.carNo LIKE #{carNo}
                 </if>
                 <if test="spaceNo != null and spaceNo != ''">
@@ -95,18 +95,18 @@
                 <if test="discAmount != null">discAmount = #{discAmount},</if>
                 <if test="cutAmount != null">cutAmount = #{cutAmount},</if>
                 <if test="saleAmount != null">saleAmount = #{saleAmount},</if>
-                <if test="receiveAmount != null">receiveAmount = #{receiveAmount},</if>
-                <if test="recpDt != null">recpDt = #{recpDt},</if>
+<!--                <if test="receiveAmount != null">receiveAmount = #{receiveAmount},</if>-->
+<!--                <if test="recpDt != null">recpDt = #{recpDt},</if>-->
                 <if test="remark != null">remark = #{remark},</if>
-                <if test="accGubun != null">accGubun = #{accGubun},</if>
+<!--                <if test="accGubun != null">accGubun = #{accGubun},</if>-->
                 <if test="gojiState != null">gojiState = #{gojiState},</if>
             </set>
         WHERE serialNo = #{serialNo}
     </update>
 
-    <delete id="deleteParkData" parameterType="String">
+    <update id="deleteParkData" parameterType="String">
         DELETE FROM parkdata
         WHERE serialNo = #{serialNo}
-    </delete>
+    </update>
 
 </mapper>
