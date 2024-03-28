@@ -102,6 +102,7 @@ select option[value=""][disabled] {display: none;}
 .w40p {width: 40% !important;}
 .w49p {width: 49% !important;}
 .w35p {width: 35% !important;}
+.w34p {width: 33% !important;}
 .w33p {width: 32.33333333% !important; margin-right: 1%;}
 .w33p2 {width: 32.33333333% !important;}
 .w30p {width: 30% !important;}
@@ -402,17 +403,18 @@ button.btn-login:hover {background: #F3914D; opacity: 1 !important;}
 .copyright {text-align: center; color: #888;}
 
 /* 조회박스 */
-.bs-group-wrap {background: #fffaf7; border: 1px solid #F3914D; border-radius: 4px; padding: 15px 20px; margin-bottom: 30px; display: flex; flex-direction: row; justify-content: space-between; gap: 30px; align-items: start;}
+.bs-group-wrap {background: #fffaf7; border: 1px solid #F3914D; border-radius: 4px; padding: 15px 20px; margin-bottom: 30px; display: flex; flex-direction: row; justify-content: space-between; gap: 30px; align-items: center;}
 .bs-group {display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 20px; margin-bottom: 0;}
-.bs-group .con {flex: 0 0 48%; display: flex; align-items: center; gap: 8px;}
+.bs-group .con {flex: 0 0 48%; display: flex; align-items: center; gap: 0;}
 .bs-group .con.w100p {flex: 0 0 100%;}
 .bs-group.hug {justify-content: left;}
-.bs-group.hug .con {min-width: 200px; flex: 0 0 auto;}
+.bs-group.hug .con {flex: 0 0 240px;}
 
-.bs-group .con .tit {word-break: keep-all; white-space: nowrap; font-weight: 400; font-size: 14px; color: #864420;}
+.bs-group .con .tit {word-break: keep-all; white-space: nowrap; font-weight: 500; font-size: 14px; color: #fff; min-width: 50px; text-align: center; background: #d7b29a; height: 30px; line-height: 30px; padding: 0 10px; border-top-left-radius: 2px; border-bottom-left-radius: 2px;}
 .bs-group .input-wrap {display: flex; gap: 25px; width: 100%; height: 30px; align-items: center; color: #4f4f4f;}
-.bs-group select, .bs-group input {border-color: #d7b29a;}
-.bs-group-wrap .btn.btn-black.w100 {height: 38px; line-height: 36px; padding: 0 20px; font-size: 16px; margin: 0 2px; border-radius: 4px; min-width: 175px; background: linear-gradient(to bottom, #333 0%, #555 100%); border-color: #222;}
+.bs-group select, .bs-group input {border-color: #d7b29a; border-top-left-radius: 0; border-bottom-left-radius: 0;}
+.bs-group-wrap .btn.btn-black.w100 {height: 38px; line-height: 36px; padding: 0 20px; font-size: 16px; margin: 0 2px; border-radius: 4px; min-width: 175px; background: linear-gradient(to bottom, #333 0%, #555 100%); border-color: #222; align-self: end;}
+.bs-group .con .tit ~ div {width: 100%;}
 
 /* tab button */
 .tablist {display: flex; gap: 4px; margin-bottom: -13px; padding-right: 8px;}
@@ -507,9 +509,9 @@ button[data-tooltip-text]:hover {opacity: 1 !important;}
 .ui-datepicker {width: 250px; padding: 0; display: none; border: 0; margin-top: 5px;}
 .ui-widget.ui-widget-content {border: 1px solid #d2d7dc; border-radius: 3px; overflow: hidden; background: #fff; box-shadow: 1px 1px 4px rgba(0,0,0,0.1); font-size: 14px;}
 .ui-datepicker .ui-widget-header {position: relative; padding: 6px 0 28px 0; border: 0; background: #afb8c3; color: #fff; border-radius: 0;}
-.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {width: 70px; height: 26px; line-height: 26px; background: rgba(142,153,166,.5) url(../images/arrow-button.png) 100% -27px no-repeat; margin: 0 4px; padding: 0 6px; border: 0; border-radius: 3px; color: #fff; font-size: 13px; font-weight: bold; box-sizing: border-box; -webkit-appearance: none; -moz-appearance: none; appearance: none;}
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {width: 70px; height: 26px; line-height: 26px; background: rgba(142,153,166,.5) url(images/arrow-button.png) 100% -27px no-repeat; margin: 0 4px; padding: 0 6px; border: 0; border-radius: 3px; color: #fff; font-size: 13px; font-weight: bold; box-sizing: border-box; -webkit-appearance: none; -moz-appearance: none; appearance: none;}
 .ui-datepicker select.ui-datepicker-month {width: 60px; margin: 0 4px 0 10px;}
-.ui-datepicker select.ui-datepicker-month:hover, .ui-datepicker select.ui-datepicker-year:hover {background: rgba(142,153,166,.8) url(../images/arrow-button.png) 100% -27px no-repeat;}
+.ui-datepicker select.ui-datepicker-month:hover, .ui-datepicker select.ui-datepicker-year:hover {background: rgba(142,153,166,.8) url(images/arrow-button.png) 100% -27px no-repeat;}
 .ui-datepicker select::-ms-expand {display: none;}
 .ui-datepicker .ui-datepicker-title {line-height: 1.8em; text-align: center; margin: 0px 2.3em; font-size: 13px; font-weight: bold; letter-spacing: 0;}
 .ui-datepicker-title .ui-datepicker-year option, .ui-datepicker-title .ui-datepicker-month option {background: #fff; color: #333;}
@@ -519,10 +521,10 @@ button[data-tooltip-text]:hover {opacity: 1 !important;}
 .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {position: absolute; top: 5px; width: 1.8em; height: 1.8em; text-indent: -9999px; cursor: pointer;}
 .ui-datepicker .ui-datepicker-prev {left: 5px;}
 .ui-datepicker .ui-datepicker-prev.ui-state-hover {background: rgba(0,0,0,0.1); border: 0;}
-.ui-datepicker .ui-datepicker-prev .ui-icon {background: url(../images/arrow-button.png) 0 0 no-repeat;}
+.ui-datepicker .ui-datepicker-prev .ui-icon {background: url(images/arrow-button.png) 0 0 no-repeat;}
 .ui-datepicker .ui-datepicker-next {right: 5px;}
 .ui-datepicker .ui-datepicker-next.ui-state-hover {background: rgba(0,0,0,0.1); border: 0;}
-.ui-datepicker .ui-datepicker-next .ui-icon {background: url(../images/arrow-button.png) -16px 0 no-repeat;}
+.ui-datepicker .ui-datepicker-next .ui-icon {background: url(images/arrow-button.png) -16px 0 no-repeat;}
 .ui-datepicker .ui-state-default {display: block; border: 0; border-radius: 2px; width: 30px; height: 30px; line-height: 30px; padding: 0; margin: 4px auto; font-size: 12px; text-align: center; background: #fff; font-weight: normal; color: #333; box-sizing: border-box; border-radius: 30px;}
 .ui-datepicker .ui-state-default.ui-state-hover {background: rgba(0,0,0,0.05);}
 .ui-datepicker-today .ui-state-default {color: #49a6fe; font-weight: bold;}

@@ -128,3 +128,18 @@ const updateStatus = () => {
         }
     })
 }
+
+const deleteStatus = () => {
+    let serial = $('#selectSerial').val();
+    $.ajax({
+        type: 'delete',
+        url: '/park/status/' + serial,
+        success: function (res) {
+            console.log(res);
+            searchStatus();
+        },
+        error: (err) => {
+            console.log('에러' + err);
+        }
+    })
+}
