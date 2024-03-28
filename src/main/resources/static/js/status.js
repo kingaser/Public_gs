@@ -121,6 +121,7 @@ const updateStatus = () => {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
             console.log(res);
+            searchStatus();
         },
         error: (err) => {
             console.log('에러' + err);
