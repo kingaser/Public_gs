@@ -9,7 +9,6 @@ import org.park.public_gs.dto.ParkSearchDto;
 import org.park.public_gs.dto.ParkStatusDto;
 import org.park.public_gs.service.ParkDataService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,8 +42,7 @@ public class ParkDataController {
                                           @RequestParam("dateType") String dateType,
                                           @RequestParam("enterDate") String enterDate,
                                           @RequestParam("leaveDate") String leaveDate,
-                                          @RequestParam("proceTag") String proceTag,
-                                          Model model) {
+                                          @RequestParam("proceTag") String proceTag) {
         ParkSearchDto parkSearchDto = ParkSearchDto.builder()
                 .carNo(carNo)
                 .spaceNo(spaceNo)
@@ -54,16 +52,24 @@ public class ParkDataController {
                 .proceTag(proceTag)
                 .build();
         List<ParkStatusDto> parkStatusList = parkdataService.getParkDataSearchList(parkSearchDto);
-        model.addAttribute("parkStatusList", parkStatusList);
         log.info("parkStatusList", parkStatusList);
         return parkStatusList;
     }
 
-    // 선택한 데이터 상세
+    // 선택 이용현황 상세
     @GetMapping("/park/status/{serialNo}")
     @ResponseBody
     public ParkDataDto parkStatusDetail(@PathVariable("serialNo") String serialNo) {
         return parkdataService.getParkDataDetail(serialNo);
+    }
+
+    // 선택한 이용 현황 수정
+    @PatchMapping("/park/status/{serialNo}")
+    @ResponseBody
+    public ParkInsertDto parkDataUpdate(@PathVariable("serialNo") String serialNo,
+                                        @RequestBody ParkInsertDto parkInsertDto) {
+        parkdataService.updateParkData(serialNo, parkInsertDto);
+        return parkInsertDto;
     }
 
     // 선택한 데이터 삭제

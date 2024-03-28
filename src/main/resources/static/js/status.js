@@ -1,9 +1,5 @@
-let updateSerialNo;
-
 const getStatusDetail = ((serialNo) => {
-    console.log('선택 호출')
     let serial = serialNo;
-    console.log('serial ' + serial);
 
     $.ajax({
         type: "GET",
@@ -11,6 +7,7 @@ const getStatusDetail = ((serialNo) => {
         contentType: "application/json",
         success: function (result) {
             console.log(result);
+            $('#selectSerial').val(result.serialNo);
             $("#enterDate").val(result.enterDate.substring(0, 10));
             $("#enterHour").val(result.enterDate.substring(11, 13));
             $("#enterMinute").val(result.enterDate.substring(14, 16));
@@ -36,7 +33,6 @@ const getStatusDetail = ((serialNo) => {
             $("#recpDt").val(result.recpDt);
             $("#gojiState").val(result.gojiState);
             $("#origAmount").val(result.origAmount);
-            updateSerialNo = result.serialNo;
         },
         error: function (err) {
             console.log(err);
@@ -59,23 +55,23 @@ const searchStatus = () => {
         },
         success: function (res) {
             let str = '';
-            $.each(res, function (i)
-            {
+            $.each(res, function (i) {
                 $.each(res[i], function (j) {
                     res[i][j] = res[i][j] != null ? res[i][j] : '';
                 })
                 str += '<tr onclick="getStatusDetail(' + '\'' + res[i].serialNo + '\'' + ')">' +
-                        '<td>' + res[i].spaceNm + '</td>'+
-                        '<td>' + res[i].enterDate + '</td>'+
-                        '<td>' + res[i].leaveDate + '</td>'+
-                        '<td>' + res[i].carNo + '</td>'+
-                        '<td>' + res[i].recpDt + '</td>'+
-                        '<td>' + res[i].accGubun + '</td>'+
-                        '<td>' + res[i].origAmount + '</td>'+
-                        '<td>' + res[i].saleAmount + '</td>'+
-                        '<td>' + res[i].discAmount + '</td>'+
-                        '<td>' + res[i].gasan + '</td>'+
-                        '</tr>'
+                    '<td>' + res[i].spaceNm + '</td>' +
+                    '<td>' + res[i].enterDate + '</td>' +
+                    '<td>' + res[i].leaveDate + '</td>' +
+                    '<td>' + res[i].carNo + '</td>' +
+                    '<td>' + res[i].recpDt + '</td>' +
+                    '<td>' + res[i].accName + '</td>' +
+                    '<td>' + res[i].origAmount + '</td>' +
+                    '<td>' + res[i].saleAmount + '</td>' +
+                    '<td>' + res[i].discAmount + '</td>' +
+                    '<td>' + res[i].gasan + '</td>' +
+                    '<td>' + res[i].receiveAmount + '</td>' +
+                    '</tr>'
             })
             $('.table_body').append(str);
         },
@@ -86,14 +82,48 @@ const searchStatus = () => {
 }
 
 const updateStatus = () => {
+    let serial = $('#selectSerial').val();
 
-    let updateData = {
+    let data = {
+        enterDate: $('#enterDate').val(),
+        enterHour: $('#enterHour').val(),
+        enterMinute: $('#enterMinute').val(),
+        enterUser: $('#enterUser').val(),
+        spaceNm: $('#spaceNm').val(),
+        carNo: $('#carNo').val(),
+        spotCount: $('#spotCount').val(),
+        spotNo: $('#spotNo').val(),
         discountCode: $('#discountCode').val(),
+        outDate: $('#outDate').val(),
+        outHour: $('#outHour').val(),
+        outMinute: $('#outMinute').val(),
         leaverUser: $('#leaverUser').val(),
         leaveType: $('#leaveType').val(),
+        recpNo: $('#recpNo').val(),
+        gasan: $('#gasan').val(),
+        cutAmount: $('#cutAmount').val(),
+        origAmount: $('#origAmount').val(),
+        discAmount: $('#discAmount').val(),
+        saleAmount: $('#saleAmount').val(),
+        receiveAmount: $('#receiveAmount').val(),
         userRemark: $('#userRemark').val(),
         remark: $('#remark').val(),
         accGubun: $('#accGubun').val(),
-        gojiState: $('#gojiState').val(),
-    }
+        recpDt: $('#recpDt').val(),
+        gojiState: $('#gojiState').val()
+    };
+
+    $.ajax({
+        type: 'patch',
+        url: '/park/status/' + serial,
+        data: JSON.stringify(data),
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+            console.log(res);
+        },
+        error: (err) => {
+            console.log('에러' + err);
+        }
+    })
 }

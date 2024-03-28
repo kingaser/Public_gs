@@ -34,9 +34,7 @@ public class ParkInsertDto {
     private Integer saleAmount;         // 이용금액
     private Integer receiveAmount;      // 납부금액
     private String recpNo;              // 영수 번호
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:ss:mm", timezone = "Asia/Seoul")  // 날짜 포맷 변경
-    private Date recpDt;                // 수납일 결제일
+    private String recpDt;                // 수납일 결제일
     private String remark;              // 메모
     private String accGubun;            // 결제구분
     private String gojiState;           // 고지상태(차수)
@@ -46,7 +44,7 @@ public class ParkInsertDto {
                          String enterMinute, String enterUser, String discountCode, String leaveType, String outDate,
                          String outHour, String outMinute, String leaverUser, Integer spotCount, String userRemark,
                          Integer gasan, Integer discAmount, Integer cutAmount, Integer saleAmount, Integer receiveAmount,
-                         String recpNo, Date recpDt, String remark, String accGubun, String gojiState) {
+                         String recpNo, String recpDt, String remark, String accGubun, String gojiState) {
         this.serialNo = serialNo;
         this.spaceNm = spaceNm;
         this.spotNo = spotNo;

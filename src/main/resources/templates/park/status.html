@@ -88,29 +88,26 @@
                     </div>
                     <div class="con-group w100p">
                         <div>
-                            <div style="height: 300px; overflow: auto">
-                                <table class="tbl-list" id="data-table">
-                                    <caption></caption>
-                                    <thead>
-                                    <tr>
-                                        <th>주차장명</th>
-                                        <th>입차일시</th>
-                                        <th>출차일시</th>
-                                        <th>차량번호</th>
-                                        <th>수납일</th>
-                                        <th>결제구분</th>
-                                        <th>원금액</th>
-                                        <th>이용금액</th>
-                                        <th>할인금액</th>
-                                        <th>가산금</th>
-                                        <th>결제금액</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="table_body">
-                                    </tbody>
-                                </table>
-                            </div>
-
+                            <table class="tbl-list" id="data-table">
+                                <caption></caption>
+                                <thead>
+                                <tr>
+                                    <th>주차장명</th>
+                                    <th>입차일시</th>
+                                    <th>출차일시</th>
+                                    <th>차량번호</th>
+                                    <th>수납일</th>
+                                    <th>결제구분</th>
+                                    <th>원금액</th>
+                                    <th>이용금액</th>
+                                    <th>할인금액</th>
+                                    <th>가산금</th>
+                                    <th>결제금액</th>
+                                </tr>
+                                </thead>
+                                <tbody class="table_body">
+                                </tbody>
+                            </table>
                             <form action="/park/insert" method="POST">
                                 <table class="tbl-list nohover">
                                     <caption></caption>
@@ -127,6 +124,7 @@
                                     <tr>
                                         <th>입차일시</th>
                                         <td>
+                                            <input type="hidden" name="selectSerial" id="selectSerial">
                                             <input type="text" class="w100p datepicker" name="enterDate" id="enterDate">
                                         </td>
                                         <th>입차시간</th>
@@ -248,7 +246,7 @@
 
                                 <div class="btn-wrap">
                                     <button type="submit" class="btn btn-mint">신규</button>
-                                    <button type="submit" class="btn btn-red">저장</button>
+                                    <button type="button" class="btn btn-red" th:onclick="updateStatus()">저장</button>
                                     <button type="submit" class="btn btn-black">삭제</button>
                                 </div>
 
