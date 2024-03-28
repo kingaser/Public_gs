@@ -19,13 +19,13 @@ public class ParkDataDto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:ss:mm", timezone = "Asia/Seoul")  // 날짜 포맷 변경
     private Date enterDate;             // 날짜 포맷 입차 날짜
-    private String enterUser;           // 입차 요원
+    private String enterUser;           // 입차 요원 ID
     private String discountCode;        // 할인 코드
     private String leaveType;           // 출차 유형
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:ss:mm", timezone = "Asia/Seoul")  // 날짜 포맷 변경
     private Date leaveDate;             // 날짜 포맷 출차 날짜
-    private String leaverUser;          // 출차 요원
+    private String leaverUser;          // 출차 요원 ID
     private Integer spotCount;          // 구획수 / 사용구획(수)
     private String userRemark;          // 요원 메모
     private Integer gasan;              // 가산금액

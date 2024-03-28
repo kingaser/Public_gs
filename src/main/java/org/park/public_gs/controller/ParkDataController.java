@@ -67,15 +67,17 @@ public class ParkDataController {
     @PatchMapping("/park/status/{serialNo}")
     @ResponseBody
     public ParkInsertDto parkDataUpdate(@PathVariable("serialNo") String serialNo,
-                                        @RequestBody ParkInsertDto parkInsertDto) {
-        parkdataService.updateParkData(serialNo, parkInsertDto);
+                                        @RequestBody ParkInsertDto parkInsertDto,
+                                        HttpServletRequest request) {
+        String ipAddress = request.getRemoteAddr();
+        parkdataService.updateParkData(serialNo, parkInsertDto, request.getSession(), ipAddress);
         return parkInsertDto;
     }
 
     // 선택한 데이터 삭제
-    @DeleteMapping("/park/status/delete/{serialNo}")
-    public String parkDataDelete(@PathVariable("serialNo") String serialNo) {
+    @DeleteMapping("/park/status/{serialNo}")
+    @ResponseBody
+    public void parkDataDelete(@PathVariable("serialNo") String serialNo) {
         parkdataService.deleteParkData(serialNo);
-        return "redirect:/park/status";
     }
 }

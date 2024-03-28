@@ -6,13 +6,13 @@
     <!-- 이용 현황 신규 저장 History -->
     <insert id="parkDataHistoryInsert" parameterType="org.park.public_gs.vo.ParkDataVo">
         INSERT INTO parkdata_history
-        (serialNo, spaceNo, carNo, enterType, enterDate, enterUser, discountCode, leaveType,
-         leaveDate, leaveUser, spotCount, userRemark, spotNo, gasan, discAmount, cutAmount,
-         saleAmount, receiveAmount, recpDt, remark, insertUser, insertDate, insertIp, del_Tag, chasu)
+        (serialNo, spaceNo, carNo, enterType, enterDate, enterUser, discountCode, leaveType, leaveDate,
+         leaveUser, spotCount, userRemark, spotNo, gasan, discAmount, cutAmount, saleAmount, receiveAmount,
+         recpDt, gojiState, remark, insertUser, insertDate, insertIp, del_Tag, chasu, proceTag)
         VALUES
-        (#{serialNo}, #{spaceNo}, #{carNo}, 3, #{enterDate}, #{enterUser}, #{discountCode}, #{leaveType},
-         #{leaveDate}, #{leaveUser}, #{spotCount}, #{userRemark}, #{spotNo}, #{gasan}, #{discAmount}, #{cutAmount},
-         #{saleAmount}, #{receiveAmount}, #{recpDt}, #{remark}, #{insertUser}, now(), #{insertIp}, 0, #{chasu})
+            (#{serialNo}, #{spaceNo}, #{carNo}, #{enterType}, #{enterDate}, #{enterUser}, #{discountCode}, #{leaveType}, #{leaveDate},
+             #{leaveUser}, #{spotCount}, #{userRemark}, #{spotNo}, #{gasan}, #{discAmount}, #{cutAmount}, #{saleAmount}, #{receiveAmount},
+             #{recpDt}, #{gojiState}, #{remark}, #{insertUser}, #{insertDate}, #{insertIp}, #{del_Tag}, #{chasu}, #{proceTag})
     </insert>
 
 </mapper>

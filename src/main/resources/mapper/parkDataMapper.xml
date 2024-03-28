@@ -14,9 +14,6 @@
              #{leaveUser}, #{spotCount}, #{userRemark}, #{spotNo}, #{gasan}, #{discAmount}, #{cutAmount}, #{saleAmount}, #{receiveAmount},
              #{recpDt}, '0', #{remark}, #{insertUser}, now(), #{insertIp}, 0, #{chasu}, 0)
     </insert>
-   <!-- <resultMap id="parkStatusResultMap" type="org.park.public_gs.dto.ParkStatusDto">
-        <result property="accName" column="accName" jdbcType="VARCHAR"/>
-    </resultMap>-->
 
     <!-- 이용 현황 검색 -->
     <select id="getParkDataSearchList" parameterType="org.park.public_gs.dto.ParkSearchDto" resultType="org.park.public_gs.dto.ParkStatusDto">
@@ -47,6 +44,7 @@
                 <if test="spaceNo != null and spaceNo != ''">
                     AND p.spaceNo = #{spaceNo}
                 </if>
+            AND p.del_Tag = '0'
                 <choose>
                     <when test='type != null and type == "E"'>
                         AND p.enterDate BETWEEN #{enterDate} AND #{leaveDate}
@@ -59,19 +57,19 @@
                     </when>
                 </choose>
 
-                AND p.del_Tag = '0'
         </where>
 
     </select>
 
     <!-- 이용 현황 선택 조회 -->
     <select id="getParkDataDetail" parameterType="String"  resultType="org.park.public_gs.dto.ParkDataDto">
-        SELECT p.serialNo, s.spaceNm, p.spotNo, p.carNo, p.enterDate, p.enterUser, p.discountCode, p.leaveType, p.leaveDate,
+        SELECT p.serialNo, s.spaceNm, p.spotNo, p.carNo, p.enterDate,
+               (SELECT userNm FROM user_info WHERE userId = p.enterUser) enterUser, p.discountCode, p.leaveType, p.leaveDate,
                p.leaveUser, p.spotCount, p.userRemark, p.gasan, p.discAmount, p.cutAmount, p.saleAmount, p.receiveAmount, p.recpNo,
                p.recpDt, p.remark, p.accGubun, p.gojiState
         FROM parkdata p
-                 JOIN space_info s
-                      ON p.spaceNo = s.spaceNo
+            JOIN space_info s
+                ON p.spaceNo = s.spaceNo
         WHERE p.serialNo = #{serialNo}
             AND p.del_Tag = '0'
     </select>
@@ -100,13 +98,24 @@
                 <if test="remark != null">remark = #{remark},</if>
 <!--                <if test="accGubun != null">accGubun = #{accGubun},</if>-->
                 <if test="gojiState != null">gojiState = #{gojiState},</if>
+                <if test="updateUser != null">updateUser = #{updateUser},</if>
+                <if test="updateDate != null">updateDate = now(),</if>
+                <if test="updateIp != null">updateIP = #{updateIp},</if>
             </set>
         WHERE serialNo = #{serialNo}
     </update>
 
-    <update id="deleteParkData" parameterType="String">
-        DELETE FROM parkdata
+    <update id="deleteParkData" parameterType="String" >
+        UPDATE parkdata
+        <set>
+            del_Tag = 9
+        </set>
         WHERE serialNo = #{serialNo}
     </update>
+
+    <select id="getParkData" parameterType="String" resultType="org.park.public_gs.vo.ParkDataVo">
+        SELECT * FROM parkdata
+        WHERE serialNo = #{serialNo};
+    </select>
 
 </mapper>

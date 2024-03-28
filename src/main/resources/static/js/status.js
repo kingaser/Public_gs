@@ -6,33 +6,36 @@ const getStatusDetail = ((serialNo) => {
         url: `/park/status/` + serial,
         contentType: "application/json",
         success: function (result) {
-            console.log(result);
             $('#selectSerial').val(result.serialNo);
-            $("#enterDate").val(result.enterDate.substring(0, 10));
-            $("#enterHour").val(result.enterDate.substring(11, 13));
-            $("#enterMinute").val(result.enterDate.substring(14, 16));
-            $("#enterUser").val(result.enterUser);
-            $("#spaceNm").val(result.spaceNm);
-            $("#carNo").val(result.carNo);
-            $("#spotCount").val(result.spotCount);
-            $("#spotNo").val(result.spotNo);
-            $("#discountCode").val(result.discountCode);
-            $("#outDate").val(result.leaveDate.substring(0, 10));
-            $("#outHour").val(result.leaveDate.substring(11, 13));
-            $("#outMinute").val(result.leaveDate.substring(14, 16));
-            $("#leaverUser").val(result.leaverUser);
-            $("#recpNo").val(result.recpNo);
-            $("#gasan").val(result.gasan);
-            $("#cutAmount").val(result.cutAmount);
-            $("#saleAmount").val(result.saleAmount);
-            $("#discAmount").val(result.discAmount);
-            $("#receiveAmount").val(result.receiveAmount);
-            $("#userRemark").val(result.userRemark);
-            $("#remark").val(result.remark);
-            $("#accGubun").val(result.accGubun);
-            $("#recpDt").val(result.recpDt);
-            $("#gojiState").val(result.gojiState);
-            $("#origAmount").val(result.origAmount);
+            if (result.enterDate != null) {
+                $('#enterDate').val(result.enterDate.substring(0, 10));
+                $('#enterHour').val(result.enterDate.substring(11, 13));
+                $('#enterMinute').val(result.enterDate.substring(14, 16));
+            }
+            $('#enterUser').val(result.enterUser);
+            $('#spaceNm').val(result.spaceNm);
+            $('#carNo').val(result.carNo);
+            $('#spotCount').val(result.spotCount);
+            $('#spotNo').val(result.spotNo);
+            $('#discountCode').val(result.discountCode);
+            if (result.leaveDate != null) {
+                $('#outDate').val(result.leaveDate.substring(0, 10));
+                $('#outHour').val(result.leaveDate.substring(11, 13));
+                $('#outMinute').val(result.leaveDate.substring(14, 16));
+            }
+            $('#leaverUser').val(result.leaverUser);
+            $('#recpNo').val(result.recpNo);
+            $('#gasan').val(result.gasan);
+            $('#cutAmount').val(result.cutAmount);
+            $('#saleAmount').val(result.saleAmount);
+            $('#discAmount').val(result.discAmount);
+            $('#receiveAmount').val(result.receiveAmount);
+            $('#userRemark').val(result.userRemark);
+            $('#remark').val(result.remark);
+            $('#accGubun').val(result.accGubun);
+            $('#recpDt').val(result.recpDt);
+            $('#gojiState').val(result.gojiState);
+            $('#origAmount').val(result.origAmount);
         },
         error: function (err) {
             console.log(err);
@@ -105,11 +108,8 @@ const updateStatus = () => {
         origAmount: $('#origAmount').val(),
         discAmount: $('#discAmount').val(),
         saleAmount: $('#saleAmount').val(),
-        receiveAmount: $('#receiveAmount').val(),
         userRemark: $('#userRemark').val(),
         remark: $('#remark').val(),
-        accGubun: $('#accGubun').val(),
-        recpDt: $('#recpDt').val(),
         gojiState: $('#gojiState').val()
     };
 

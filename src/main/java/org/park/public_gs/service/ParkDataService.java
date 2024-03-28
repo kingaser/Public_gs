@@ -92,13 +92,15 @@ public class ParkDataService {
     }
 
     // 이용 현황 선택 수정
-    public void updateParkData(String serialNo, ParkInsertDto parkInsertDto) {
+    public void updateParkData(String serialNo, ParkInsertDto parkInsertDto, HttpSession session, String ipAddress) {
         String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
         String leaveDate = parkInsertDto.getOutDate() != "" ?
                 parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : null;
 
+        String updateUsername = String.valueOf(session.getAttribute("loginNm"));
         // user 정보 요원 이름으로 검색
         UserInfoVo leaveUserInfo = userMapper.findByUserName(parkInsertDto.getLeaverUser());
+        UserInfoVo updateUserInfo = userMapper.findByUserName(updateUsername);
 
         // 주차장 정보 주차장 명으로 검색
         SpaceInfoVo spaceInfo = spaceMapper.getSpaceInfo(parkInsertDto.getSpaceNm());
@@ -125,6 +127,8 @@ public class ParkDataService {
                 .remark(parkInsertDto.getRemark())
                 .accGubun(parkInsertDto.getAccGubun())
                 .gojiState(parkInsertDto.getGojiState())
+                .updateUser(updateUserInfo.getUserId())
+                .updateIp(ipAddress)
                 .build();
 
         parkDataMapper.updateParkData(parkdataVo);
@@ -134,5 +138,6 @@ public class ParkDataService {
     // 이용 현황 선택 삭제
     public void deleteParkData(String serialNo) {
         parkDataMapper.deleteParkData(serialNo);
+        parkDataHistoryMapper.parkDataHistoryInsert(parkDataMapper.getParkData(serialNo));
     }
 }

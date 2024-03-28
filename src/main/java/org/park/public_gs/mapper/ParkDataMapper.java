@@ -20,4 +20,6 @@ public interface ParkDataMapper {
     void deleteParkData(String serialNo);
 
     void updateParkData(ParkDataVo parkDataVo);
+
+    ParkDataVo getParkData(String serialNo);
 }

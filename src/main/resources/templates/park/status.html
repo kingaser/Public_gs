@@ -154,7 +154,7 @@
                                         <td><input type="text" class="w100p" name="spotNo" id="spotNo" value="1"></td>
                                         <th>할인유형</th>
                                         <td>
-                                            <select id="discountCode" name="discountCode">
+                                            <select class="w100p" id="discountCode" name="discountCode">
                                             </select>
                                         </td>
                                     </tr>
@@ -175,7 +175,7 @@
                                         <td><input type="text" class="w100p" name="leaverUser" id="leaverUser"></td>
                                         <th>출차유형</th>
                                         <td>
-                                            <select id="leaveType" name="leaveType"></select>
+                                            <select class="w100p" id="leaveType" name="leaveType"></select>
                                         </td>
                                     </tr>
                                     <tr>
@@ -203,25 +203,30 @@
                                         <th>요원메모</th>
                                         <td colspan="3"><input type="text" class="w100p" name="userRemark"
                                                                id="userRemark"></td>
-                                        <th>관리자메모</th>
-                                        <td colspan="3"><input type="text" class="w100p" name="remark" id="remark"></td>
-                                    </tr>
-                                    <tr>
                                         <th>가상계좌번호</th>
                                         <td><input type="text" class="w100p" value=""></td>
                                         <th>가상계좌기한</th>
                                         <td><input type="text" class="w100p datepicker" value="2024.01.01"></td>
-                                        <td colspan="2" class="right">
+                                        <!--<th>관리자메모</th>
+                                        <td colspan="3"><input type="text" class="w100p" name="remark" id="remark"></td>-->
+                                    </tr>
+                                    <tr>
+                                        <!--<th>가상계좌번호</th>
+                                        <td><input type="text" class="w100p" value=""></td>
+                                        <th>가상계좌기한</th>
+                                        <td><input type="text" class="w100p datepicker" value="2024.01.01"></td>-->
+                                        <th>관리자메모</th>
+                                        <td colspan="3"><input type="text" class="w100p" name="remark" id="remark"></td>
+                                        <th></th>
+                                        <td></td>
+                                        <th colspan="2" class="right">
                                             <div style="display: flex; justify-content: right">
                                                 <button type="button" class="btn btn-blue" poplink="pop1">기한연장</button>&nbsp;
                                                 <button type="button" class="btn btn-blue">번호재생성</button>&nbsp;
                                                 <button type="button" class="btn btn-blue">금액수정</button>&nbsp;
                                                 <button type="button" class="btn btn-blue">SMS</button>
                                             </div>
-                                        </td>
-                                        <th></th>
-                                        <td class="right">
-                                        </td>
+                                        </th>
                                     </tr>
                                     <tr>
                                         <th>결제방법</th>
@@ -239,11 +244,11 @@
                                 </table>
 
                                 <div class="btn-wrap">
-                                    <button type="submit" class="btn btn-white">요금자동계산</button>
+                                    <button type="button" class="btn btn-white">요금자동계산</button>
                                     <button type="submit" class="btn btn-mint">신규</button>
                                     <button type="button" class="btn btn-red" th:onclick="updateStatus()">저장</button>
-                                    <button type="submit" class="btn btn-gray">결제</button>
-                                    <button type="submit" class="btn btn-black" th:onclick="deleteStatus()">삭제</button>
+                                    <button type="button" class="btn btn-gray">결제</button>
+                                    <button type="button" class="btn btn-black" th:onclick="deleteStatus()">삭제</button>
                                 </div>
 
                             </form>
