@@ -162,7 +162,7 @@ public class ParkDataService {
 
         ParkDataVo parkData = parkDataMapper.getParkData(serialNo);
 
-        if (!(parkData.getAccGubun().equals("00") || parkData.getProceTag().equals("0"))) {
+        if (parkData.getAccGubun().equals("00") || parkData.getProceTag().equals("0")) {
             return MessageDto.builder()
                     .status(HttpStatus.BAD_REQUEST.value())
                     .message("결제가 되어있지 않습니다.")

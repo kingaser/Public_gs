@@ -227,7 +227,7 @@ function getSelectCommonCode(SELECT_ID, URL, SELECT_OPTION){
         if(SELECT_OPTION=="all"){
             option += "<option value=''>전체</option>";
         }else if(SELECT_OPTION=="misu"){
-            option += "<option value=''>미수</option>";
+            option += "<option value='00'>미수</option>";
         }
         $.each(resultJson, function(i, n) {
             option += "<option value='"+ n.codeNo + "' id='"+ n.codeNo + "'>"+ n.codeNm	+ "</option>";

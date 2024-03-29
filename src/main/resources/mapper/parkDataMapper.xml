@@ -111,7 +111,7 @@
         <set>
             del_Tag = 9,
             updateUser = #{userId},
-            updateDte = now(),
+            updateDate = now(),
             updateIP = #{ipAddress}
         </set>
         WHERE serialNo = #{serialNo}
@@ -128,7 +128,10 @@
             accGubun = '00',
             proceTag = '0',
             receiveAmount = null,
-            recpDt = null
+            recpDt = null,
+            updateUser = #{userId},
+            updateDate = now(),
+            updateIP = #{ipAddress}
         </set>
     </update>
 </mapper>
