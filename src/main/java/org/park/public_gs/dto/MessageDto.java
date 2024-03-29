@@ -8,7 +8,7 @@ public class MessageDto {
 
 
     private int status;     // 상태 코드
-    private String message; // 메시지
+    private String message; // 메시지 qq
 
     @Builder
     public MessageDto(int status, String message) {
