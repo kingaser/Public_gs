@@ -3,10 +3,7 @@ package org.park.public_gs.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.park.public_gs.dto.ParkDataDto;
-import org.park.public_gs.dto.ParkInsertDto;
-import org.park.public_gs.dto.ParkSearchDto;
-import org.park.public_gs.dto.ParkStatusDto;
+import org.park.public_gs.dto.*;
 import org.park.public_gs.service.ParkDataService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -75,8 +72,8 @@ public class ParkDataController {
     // 선택한 데이터 삭제
     @DeleteMapping("/park/status/{serialNo}")
     @ResponseBody
-        public void parkDataDelete(@PathVariable("serialNo") String serialNo,
-                                   HttpServletRequest request) {
+    public void parkDataDelete(@PathVariable("serialNo") String serialNo,
+                               HttpServletRequest request) {
         parkdataService.deleteParkData(request, serialNo);
     }
 
@@ -86,5 +83,13 @@ public class ParkDataController {
     public void parkPay(@RequestBody ParkInsertDto parkInsertDto,
                         HttpServletRequest request) {
         parkdataService.updateParkPay(request, parkInsertDto);
+    }
+
+    // 결제 취소
+    @PatchMapping("/park/pay/cancel/{serialNo}")
+    @ResponseBody
+    public MessageDto parkPayCancel(@PathVariable("serialNo") String serialNo,
+                                    HttpServletRequest request) {
+        return parkdataService.cancelParkPay(serialNo, request);
     }
 }

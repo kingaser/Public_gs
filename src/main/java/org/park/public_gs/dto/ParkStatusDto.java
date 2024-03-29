@@ -25,8 +25,9 @@ public class ParkStatusDto {
     private Integer gasan;          // 가산금액
 
     @Builder
+
     public ParkStatusDto(String serialNo, String spaceNm, String enterDate, String leaveDate, String carNo,
-                         String recpDt, String accName, String accGubun, Integer origAmount, Integer saleAmount,
+                         String recpDt, String accGubun, String accName, Integer origAmount, Integer saleAmount,
                          Integer discAmount, Integer receiveAmount, Integer gasan) {
         this.serialNo = serialNo;
         this.spaceNm = spaceNm;

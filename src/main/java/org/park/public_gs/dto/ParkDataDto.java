@@ -29,6 +29,7 @@ public class ParkDataDto {
     private Integer spotCount;          // 구획수 / 사용구획(수)
     private String userRemark;          // 요원 메모
     private Integer gasan;              // 가산금액
+    private Integer origAmount;         // 원금액
     private Integer discAmount;         // 할인 금액
     private Integer cutAmount;          // 절사요금
     private Integer saleAmount;         // 이용금액
@@ -47,9 +48,9 @@ public class ParkDataDto {
     @Builder
     public ParkDataDto(String serialNo, String spaceNm, Integer spotNo, String carNo, Date enterDate, String enterUser,
                        String discountCode, String leaveType, Date leaveDate, String leaverUser, Integer spotCount,
-                       String userRemark, Integer gasan, Integer discAmount, Integer cutAmount, Integer saleAmount,
-                       Integer receiveAmount, String recpNo, Date recpDt, String remark, String accGubun, String gojiState,
-                       String proceTag, String payDate, String account) {
+                       String userRemark, Integer gasan, Integer origAmount, Integer discAmount, Integer cutAmount,
+                       Integer saleAmount, Integer receiveAmount, String recpNo, Date recpDt, String remark,
+                       String accGubun, String gojiState, String proceTag, String payDate, String account) {
         this.serialNo = serialNo;
         this.spaceNm = spaceNm;
         this.spotNo = spotNo;
@@ -63,6 +64,7 @@ public class ParkDataDto {
         this.spotCount = spotCount;
         this.userRemark = userRemark;
         this.gasan = gasan;
+        this.origAmount = origAmount;
         this.discAmount = discAmount;
         this.cutAmount = cutAmount;
         this.saleAmount = saleAmount;

@@ -1,6 +1,8 @@
+// 결제 / 결제취소 버튼
 let proceTag = '0';
 $('#cancelBtn').hide();
 
+// 이용현황 선택 조회
 const getStatusDetail = ((serialNo) => {
     let serial = serialNo;
 
@@ -9,6 +11,7 @@ const getStatusDetail = ((serialNo) => {
         url: `/park/status/` + serial,
         contentType: "application/json",
         success: function (result) {
+            console.log(result);
             $('#selectSerial').val(result.serialNo);
             if (result.enterDate != null) {
                 $('#enterDate').val(result.enterDate.substring(0, 10));
@@ -57,6 +60,7 @@ const getStatusDetail = ((serialNo) => {
 
 })
 
+// 이용현황 검색
 const searchStatus = () => {
     $('.table_body').empty();
     $.ajax({
@@ -98,6 +102,7 @@ const searchStatus = () => {
     })
 }
 
+// 이용현황 수정
 const updateStatus = () => {
     let serial = $('#selectSerial').val();
 
@@ -143,6 +148,7 @@ const updateStatus = () => {
     })
 }
 
+// 이용현황 선택 삭제
 const deleteStatus = () => {
     let serial = $('#selectSerial').val();
     $.ajax({
@@ -158,6 +164,7 @@ const deleteStatus = () => {
     })
 }
 
+// 가상 계좌 생성
 const postBankAccount = () => {
     let serialNo = $('#selectSerial').val();
     $.ajax({
@@ -169,6 +176,22 @@ const postBankAccount = () => {
         success: function (res) {
             console.log(res);
             getStatusDetail(serialNo);
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    })
+}
+
+const cancelPay = () => {
+    let serialNo = $('#selectSerial').val();
+
+    $.ajax({
+        type: 'patch',
+        url: '/park/pay/cancel/' + serialNo,
+        dataType: 'json',
+        success: function (res) {
+            console.log(res);
         },
         error: function (err) {
             console.log(err);

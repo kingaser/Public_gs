@@ -23,4 +23,6 @@ public interface ParkDataMapper {
     void updateParkData(ParkDataVo parkDataVo);
 
     ParkDataVo getParkData(String serialNo);
+
+    void updateParkPayCancel(Map<String, String> paramMap);
 }

@@ -207,14 +207,8 @@
                                         <td><input type="text" class="w100p" value="" name="account" id="account"></td>
                                         <th>가상계좌기한</th>
                                         <td><input type="text" class="w100p datepicker" name="payDate" id="payDate"></td>
-                                        <!--<th>관리자메모</th>
-                                        <td colspan="3"><input type="text" class="w100p" name="remark" id="remark"></td>-->
                                     </tr>
                                     <tr>
-                                        <!--<th>가상계좌번호</th>
-                                        <td><input type="text" class="w100p" value=""></td>
-                                        <th>가상계좌기한</th>
-                                        <td><input type="text" class="w100p datepicker" value="2024.01.01"></td>-->
                                         <th>관리자메모</th>
                                         <td colspan="3"><input type="text" class="w100p" name="remark" id="remark"></td>
                                         <th></th>
@@ -248,7 +242,7 @@
                                     <button type="submit" class="btn btn-mint">신규</button>
                                     <button type="button" class="btn btn-red" th:onclick="updateStatus()">저장</button>
                                     <button type="button" class="btn btn-gray" id="payBtn">결제</button>
-                                    <button type="button" class="btn btn-gray" id="cancelBtn">결제취소</button>
+                                    <button type="button" class="btn btn-gray" id="cancelBtn" th:onclick="cancelPay()">결제취소</button>
                                     <button type="button" class="btn btn-black" th:onclick="deleteStatus()">삭제</button>
                                 </div>
 

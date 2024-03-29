@@ -3,14 +3,12 @@ package org.park.public_gs.service;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.park.public_gs.dto.ParkDataDto;
-import org.park.public_gs.dto.ParkInsertDto;
-import org.park.public_gs.dto.ParkSearchDto;
-import org.park.public_gs.dto.ParkStatusDto;
+import org.park.public_gs.dto.*;
 import org.park.public_gs.mapper.*;
 import org.park.public_gs.vo.ParkDataVo;
 import org.park.public_gs.vo.SpaceInfoVo;
 import org.park.public_gs.vo.UserInfoVo;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -140,7 +138,7 @@ public class ParkDataService {
         parkDataHistoryMapper.parkDataHistoryInsert(parkDataMapper.getParkData(serialNo));
     }
 
-    // 결제
+    // 결제 미완성
     public void updateParkPay(HttpServletRequest request, ParkInsertDto parkInsertDto) {
 
         Map<String, String> dateMap = enterAndLeaveDate(parkInsertDto);
@@ -154,6 +152,28 @@ public class ParkDataService {
                 .leaveUser(leaveUserInfo.getUserId())
                 .updateIp(userMap.get("ipAddress"))
                 .updateUser(userMap.get("userId"))
+                .build();
+    }
+
+    // 결제 취소
+    public MessageDto cancelParkPay(String serialNo, HttpServletRequest request) {
+        Map<String, String> paramMap = userAndIp(request);
+        paramMap.put("serialNo", serialNo);
+
+        ParkDataVo parkData = parkDataMapper.getParkData(serialNo);
+
+        if (!(parkData.getAccGubun().equals("00") || parkData.getProceTag().equals("0"))) {
+            return MessageDto.builder()
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .message("결제가 되어있지 않습니다.")
+                    .build();
+        }
+
+        parkDataMapper.updateParkPayCancel(paramMap);
+
+        return MessageDto.builder()
+                .status(HttpStatus.OK.value())
+                .message("결제 취소 완료")
                 .build();
     }
 

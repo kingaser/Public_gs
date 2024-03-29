@@ -17,12 +17,11 @@
 
     <!-- 이용 현황 검색 -->
     <select id="getParkDataSearchList" parameterType="org.park.public_gs.dto.ParkSearchDto" resultType="org.park.public_gs.dto.ParkStatusDto">
-
         <bind name="carNo" value="_parameter.getCarNo() != null ? '%' + _parameter.getCarNo() + '%' : null"/>
         <bind name="enterDate" value="_parameter.getEnterDate() != null ? _parameter.getEnterDate() + ' 00:00:00' : null" />
         <bind name="leaveDate" value="_parameter.getLeaveDate() != null ? _parameter.getLeaveDate() + ' 23:59:59' : null" />
         <bind name="type" value="_parameter.getDateType() != null ? _parameter.getDateType().toString : null" />
-        SELECT p.serialNo, s.spaceNm, p.enterDate, p.leaveDate, p.carNo, p.recpDt,
+        SELECT p.serialNo, s.spaceNm, p.enterDate, p.leaveDate, p.carNo, p.recpDt, p.accGubun,
                 CASE WHEN (p.proceTag = '0') THEN '미납'
                     WHEN (p.proceTag = '1' AND p.accGubun = '01') THEN '현금'
                     WHEN (p.proceTag = '1' AND p.accGubun = '02') THEN '카드'
@@ -30,7 +29,7 @@
                     WHEN (p.proceTag = '1' AND p.accGubun = '04') THEN '고지서'
                     WHEN (p.proceTag = '1' AND p.accGubun = '06') THEN '가상계좌'
                 END AS accName,
-            p.accGubun, p.origAmount, p.saleAmount, p.discAmount, p.gasan, p.receiveAmount
+            p.origAmount, p.saleAmount, p.discAmount, p.receiveAmount, p.gasan
         FROM parkdata p
             INNER JOIN space_info s
                 ON p.spaceNo = s.spaceNo
@@ -65,8 +64,8 @@
     <select id="getParkDataDetail" parameterType="String"  resultType="org.park.public_gs.dto.ParkDataDto">
         SELECT p.serialNo, s.spaceNm, p.spotNo, p.carNo, p.enterDate,
                (SELECT userNm FROM user_info WHERE userId = p.enterUser) enterUser, p.discountCode, p.leaveType, p.leaveDate,
-               p.leaveUser, p.spotCount, p.userRemark, p.gasan, p.discAmount, p.cutAmount, p.saleAmount, p.receiveAmount, p.recpNo,
-               p.recpDt, p.remark, p.accGubun, p.gojiState, p.proceTag, b.payDate, b.account
+               p.leaveUser, p.spotCount, p.userRemark, p.gasan, p.origAmount, p.discAmount, p.cutAmount, p.saleAmount,
+               p.receiveAmount, p.recpNo, p.recpDt, p.remark, p.accGubun, p.gojiState, p.proceTag, b.payDate, b.account
         FROM parkdata p
             LEFT JOIN space_info s
                 ON p.spaceNo = s.spaceNo
@@ -123,4 +122,13 @@
         WHERE serialNo = #{serialNo};
     </select>
 
+    <update id="updateParkPayCancel" parameterType="map">
+        UPDATE parkdata
+        <set>
+            accGubun = '00',
+            proceTag = '0',
+            receiveAmount = null,
+            recpDt = null
+        </set>
+    </update>
 </mapper>
