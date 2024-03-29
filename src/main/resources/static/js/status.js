@@ -39,8 +39,9 @@ const getStatusDetail = ((serialNo) => {
             $('#recpDt').val(result.recpDt);
             $('#gojiState').val(result.gojiState);
             $('#origAmount').val(result.origAmount);
+            $('#payDate').val(result.payDate);
+            $('#account').val(result.account);
             proceTag = result.proceTag;
-            console.log('proceTag = ', proceTag)
             if (proceTag === '0' || proceTag === '9') {
                 $('#cancelBtn').hide();
                 $('#payBtn').show();
@@ -153,6 +154,24 @@ const deleteStatus = () => {
         },
         error: (err) => {
             console.log('에러' + err);
+        }
+    })
+}
+
+const postBankAccount = () => {
+    let serialNo = $('#selectSerial').val();
+    $.ajax({
+        type: 'post',
+        url: '/bank/create',
+        data: serialNo,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (res) {
+            console.log(res);
+            getStatusDetail(serialNo);
+        },
+        error: function (err) {
+            console.log(err);
         }
     })
 }

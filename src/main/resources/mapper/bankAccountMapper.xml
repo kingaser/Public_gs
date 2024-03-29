@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.park.public_gs.mapper.BankAccountMapper" >	<!-- mapper 인터페이스가 위치하는 경로 -->
+
+    <!--  가상계좌 Procedure 호출 -->
+    <select id="callAccount" statementType="CALLABLE" parameterType="hashMap" resultType="String">
+        CALL Get_Account(#{serialNo}, #{userId}, @result)
+    </select>
+
+    <select id="getBankAccount" parameterType="String" resultType="org.park.public_gs.vo.BankAccountVo">
+        SELECT bank, bankCode, parkingType, gubun, carNo, recpNo, gojiNo, spaceNo, serialNo, account, receiveAmount,
+               payDate, ipgmDt, ipgmTag, jm_SeqNo, insertUser, insertDate, updateUser, updateDate, memNm
+        FROM bank_account
+        WHERE serialNo = #{serialNo}
+    </select>
+</mapper>

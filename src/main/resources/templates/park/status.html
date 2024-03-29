@@ -204,9 +204,9 @@
                                         <td colspan="3"><input type="text" class="w100p" name="userRemark"
                                                                id="userRemark"></td>
                                         <th>가상계좌번호</th>
-                                        <td><input type="text" class="w100p" value=""></td>
+                                        <td><input type="text" class="w100p" value="" name="account" id="account"></td>
                                         <th>가상계좌기한</th>
-                                        <td><input type="text" class="w100p datepicker" value="2024.01.01"></td>
+                                        <td><input type="text" class="w100p datepicker" name="payDate" id="payDate"></td>
                                         <!--<th>관리자메모</th>
                                         <td colspan="3"><input type="text" class="w100p" name="remark" id="remark"></td>-->
                                     </tr>
@@ -222,7 +222,7 @@
                                         <th colspan="2" class="right">
                                             <div style="display: flex; justify-content: right">
                                                 <button type="button" class="btn btn-blue" poplink="pop1">기한연장</button>&nbsp;
-                                                <button type="button" class="btn btn-blue">번호재생성</button>&nbsp;
+                                                <button type="button" class="btn btn-blue" th:onclick="postBankAccount()">번호재생성</button>&nbsp;
                                                 <button type="button" class="btn btn-blue">금액수정</button>&nbsp;
                                                 <button type="button" class="btn btn-blue">SMS</button>
                                             </div>

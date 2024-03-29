@@ -1,7 +1,6 @@
 package org.park.public_gs.service;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.park.public_gs.dto.ParkDataDto;
@@ -32,12 +31,9 @@ public class ParkDataService {
 
     // 입차 정보
     public void parkInsert(HttpServletRequest request, ParkInsertDto parkInsertDto) {
-        // 입차날짜 출차날짜 HTML 에 날짜와 시간으로 분리되어 있어서 합쳐주는 작업
-        String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
-        String leaveDate = parkInsertDto.getOutDate() != "" ?
-                parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : null;
 
-        Map<String, String> userAndIp = userAndIp(request);
+        Map<String, String> dateMap = enterAndLeaveDate(parkInsertDto);
+        Map<String, String> userMap = userAndIp(request);
 
         Calendar calendar = Calendar.getInstance();
         int dayOfWeekNumber = calendar.get(Calendar.DAY_OF_WEEK);
@@ -57,11 +53,11 @@ public class ParkDataService {
                 .serialNo(serialNo)
                 .spaceNo(spaceInfo.getSpaceNo())
                 .carNo(parkInsertDto.getCarNo())
-                .enterDate(enterDate)
+                .enterDate(dateMap.get("enterDate"))
                 .enterUser(enterUserInfo.getUserId())
                 .discountCode(parkInsertDto.getDiscountCode())
                 .leaveType(parkInsertDto.getLeaveType())
-                .leaveDate(leaveDate)
+                .leaveDate(dateMap.get("leaveDate"))
                 .leaveUser(leaveUserInfo != null ? leaveUserInfo.getUserId() : null)
                 .spotCount(parkInsertDto.getSpotCount())
                 .userRemark(parkInsertDto.getUserRemark())
@@ -73,8 +69,8 @@ public class ParkDataService {
                 .receiveAmount(parkInsertDto.getReceiveAmount())
                 .recpDt(parkInsertDto.getRecpDt() != "" ? parkInsertDto.getRecpDt() : null)
                 .remark(parkInsertDto.getRemark())
-                .insertUser(userAndIp.get("userId"))
-                .insertIp(userAndIp.get("ipAddress"))
+                .insertUser(userMap.get("userId"))
+                .insertIp(userMap.get("ipAddress"))
                 .accGubun(parkInsertDto.getAccGubun())
                 .chasu(String.valueOf(dayOfWeekNumber))
                 .gojiState(parkInsertDto.getGojiState())
@@ -96,11 +92,9 @@ public class ParkDataService {
 
     // 이용 현황 선택 수정
     public void updateParkData(String serialNo, ParkInsertDto parkInsertDto, HttpServletRequest request) {
-        String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
-        String leaveDate = parkInsertDto.getOutDate() != "" ?
-                parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : null;
 
-        Map<String, String> userAndIp = userAndIp(request);
+        Map<String, String> dateMap = enterAndLeaveDate(parkInsertDto);
+        Map<String, String> userMap = userAndIp(request);
 
         // user 정보 요원 이름으로 검색
         UserInfoVo leaveUserInfo = userMapper.findByUserName(parkInsertDto.getLeaverUser());
@@ -113,10 +107,10 @@ public class ParkDataService {
                 .serialNo(serialNo)
                 .spaceNo(spaceInfo.getSpaceNo())
                 .carNo(parkInsertDto.getCarNo())
-                .enterDate(enterDate)
+                .enterDate(dateMap.get("enterDate"))
                 .discountCode(parkInsertDto.getDiscountCode())
                 .leaveType(parkInsertDto.getLeaveType())
-                .leaveDate(leaveDate)
+                .leaveDate(dateMap.get("leaveDate"))
                 .leaveUser(leaveUserInfo != null ? leaveUserInfo.getUserId() : "")
                 .spotCount(parkInsertDto.getSpotCount())
                 .userRemark(parkInsertDto.getUserRemark())
@@ -130,8 +124,8 @@ public class ParkDataService {
                 .remark(parkInsertDto.getRemark())
                 .accGubun(parkInsertDto.getAccGubun())
                 .gojiState(parkInsertDto.getGojiState())
-                .updateUser(userAndIp.get("userId"))
-                .updateIp(userAndIp.get("ipAddress"))
+                .updateUser(userMap.get("userId"))
+                .updateIp(userMap.get("ipAddress"))
                 .build();
 
         parkDataMapper.updateParkData(parkdataVo);
@@ -149,6 +143,18 @@ public class ParkDataService {
     // 결제
     public void updateParkPay(HttpServletRequest request, ParkInsertDto parkInsertDto) {
 
+        Map<String, String> dateMap = enterAndLeaveDate(parkInsertDto);
+        Map<String, String> userMap = userAndIp(request);
+
+        UserInfoVo leaveUserInfo = userMapper.findByUserName(parkInsertDto.getLeaverUser());
+
+        ParkDataVo parkDataVo = ParkDataVo.builder()
+                .discountCode(parkInsertDto.getDiscountCode())
+                .leaveDate(dateMap.get("leaveDate"))
+                .leaveUser(leaveUserInfo.getUserId())
+                .updateIp(userMap.get("ipAddress"))
+                .updateUser(userMap.get("userId"))
+                .build();
     }
 
     // IP 주소, 로그인한 userId 추출 메서드
@@ -156,10 +162,25 @@ public class ParkDataService {
         String userId = String.valueOf(request.getSession().getAttribute("loginId"));
         String ipAddress = request.getRemoteAddr();
 
-        Map<String, String> userAndIp = new HashMap<>();
-        userAndIp.put("userId", userId);
-        userAndIp.put("ipAddress", ipAddress);
+        Map<String, String> userAndIp = new HashMap<>() {{
+            put("userId", userId);
+            put("ipAddress", ipAddress);
+        }};
 
         return userAndIp;
+    }
+
+    // 입차날짜 출차날짜 계산 메서드
+    private Map<String, String> enterAndLeaveDate(ParkInsertDto parkInsertDto) {
+        String enterDate = parkInsertDto.getEnterDate() + " " + parkInsertDto.getEnterHour() + ":" + parkInsertDto.getEnterMinute();
+        String leaveDate = parkInsertDto.getOutDate() != "" ?
+                parkInsertDto.getOutDate() + " " + parkInsertDto.getOutHour() + ":" + parkInsertDto.getOutMinute() : null;
+
+        Map<String, String> dateMap = new HashMap<>() {{
+            put("enterDate", enterDate);
+            put("leaveDate", leaveDate);
+        }};
+
+        return dateMap;
     }
 }

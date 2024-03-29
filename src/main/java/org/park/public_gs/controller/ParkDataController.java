@@ -75,8 +75,8 @@ public class ParkDataController {
     // 선택한 데이터 삭제
     @DeleteMapping("/park/status/{serialNo}")
     @ResponseBody
-        public void parkDataDelete(HttpServletRequest request,
-                                   @PathVariable("serialNo") String serialNo) {
+        public void parkDataDelete(@PathVariable("serialNo") String serialNo,
+                                   HttpServletRequest request) {
         parkdataService.deleteParkData(request, serialNo);
     }
 
